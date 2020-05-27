@@ -9,6 +9,11 @@
   src: url("./assets/font/Muli-Bold.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: Inconsolata-Medium;
+  src: url("./assets/font/Inconsolata-Medium.ttf") format("truetype");
+}
+
 body {
   font-family: Muli-Medium;
   margin: 0;
@@ -21,9 +26,12 @@ h1 {
 }
 
 .subtitle {
+  font-family: Inconsolata-Medium;
   font-weight: 400;
   margin-top: 0;
   color: grey;
+  font-size: 2.7em;
+  float: left;
 }
 
 p {
@@ -73,4 +81,12 @@ p {
 .PortraitImage {
   max-width: 85%;
   max-height: 85%;
+}
+
+#BlinkingText {
+  float: right;
+}
+
+.DescText {
+  float: left;
 }

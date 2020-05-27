@@ -16,18 +16,30 @@
  * Adds a random fact about Peter to the page.
  */
 function addRandomFact() {
-  const facts =
-      [
-        'I was born in Trenton, NJ.', 
-        'I like bird watching!',
-        'I play badminton a lot!',
-        'My Chinese name is Wu Lingrui (吴灵锐).'
-      ];
+  const facts = [
+    "I was born in Trenton, NJ.",
+    "I like bird watching!",
+    "I play badminton a lot!",
+    "My Chinese name is Wu Lingrui (吴灵锐).",
+  ];
 
   // Pick a random fact.
   const fact = facts[Math.floor(Math.random() * facts.length)];
 
   // Add it to the page.
-  const factContainer = document.getElementById('fact-container');
+  const factContainer = document.getElementById("fact-container");
   factContainer.innerText = fact;
 }
+
+// true represents that the blinking text is hidden, false shows
+let alternateOnOff = false;
+
+// Interval for repeated blinking text effect on page
+setInterval(() => {
+  if (alternateOnOff) {
+    document.getElementById("BlinkingText").style.opacity = 0;
+  } else {
+    document.getElementById("BlinkingText").style.opacity = 1;
+  }
+  alternateOnOff = !alternateOnOff;
+}, 500);
