@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>My Portfolio | Peter Wu</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
   <body>
-    <div id="content">
-      <h1>Peter Wu</h1>
-      <img src="/images/peter.JPG" alt="Portait photo of Peter at Cornell" />
-      <p>I'm a freshman at Cornell who likes to make things to create a marked improvement in our lives!</p>
-      <p>Click here to get a random fact about Peter:</p>
-      <button onclick="addRandomFact()">Click Me</button>
-      <div id="fact-container"></div>
+    <div class="navbarWrap">
+      <a href="#" id="logoButton">
+        <img src="assets/images/logo.png" alt="Peter Wu logo" width="72px" />
+      </a>
+    </div>
+    <div class="HeroContainer">
+      <div class="HeroLeft">
+        <h1>Peter Wu</h1>
+
+        <p>
+          I'm a freshman at Cornell who likes to make things to create a marked
+          improvement in our lives!
+        </p>
+        <p>Click here to get a random fact about Peter:</p>
+        <button onclick="addRandomFact()">Click Me</button>
+        <div id="fact-container"></div>
+      </div>
+      <div class="HeroRight">
+        <img
+          src="assets/images/peter.JPG"
+          alt="Portait photo of Peter at Cornell"
+        />
+      </div>
     </div>
   </body>
 </html>
