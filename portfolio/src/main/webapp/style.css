@@ -7,6 +7,20 @@ body {
   float: right;
 }
 
+.card {
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 5px 5px rgba(0, 0, 0, 0.2);
+  margin: 8px;
+  min-width: 400px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card:hover {
+  box-shadow: 0 5px 10px rgba(80, 80, 80, 0.1), 0 6px rgba(78, 78, 78, 0.2);
+}
+
 .cta-button-container {
   clear: left;
 }
@@ -112,6 +126,14 @@ body {
   border-top: 5px solid black;
   min-height: 100vh;
   width: 100%;
+  text-align: center;
+}
+
+.projects-row {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin: auto;
 }
 
 .projects-header {
