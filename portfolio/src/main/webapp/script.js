@@ -25,10 +25,6 @@ function addRandomFact() {
 
   // Pick a random fact.
   const fact = facts[Math.floor(Math.random() * facts.length)];
-
-  // Add it to the page.
-  const factContainer = document.getElementById("fact-container");
-  factContainer.innerText = fact;
 }
 
 // true represents that the blinking text is hidden, false shows
@@ -43,3 +39,7 @@ setInterval(() => {
   }
   alternateOnOff = !alternateOnOff;
 }, 500);
+
+function scrollToProjects() {
+  document.getElementById("projects").scrollIntoView({ behavior: "smooth" });
+}

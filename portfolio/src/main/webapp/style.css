@@ -7,6 +7,10 @@ body {
   float: right;
 }
 
+.CTAButtonContainer {
+  clear: left;
+}
+
 .DescText {
   float: left;
   font-size: 2.5em;
@@ -46,17 +50,38 @@ body {
   border: none;
 }
 
-.LinksContainer {
-  float: left;
+.LearnMoreButton {
+  border: none;
+  margin-top: 4em;
+  font-family: var(--boldFont);
+  background: var(--motifColor);
+  border-radius: 50px;
+  width: 18%;
+  line-height: 50px;
+  font-size: 24px;
+  color: white;
+  box-shadow: 0 0 40px hsl(209, 100%, 77%);
+  position: absolute;
 }
 
-#logoButton:hover {
-  filter: brightness(110%);
+.LearnMoreButton:hover {
+  background: var(--motifColorActive);
+  cursor: pointer;
+}
+
+.LinksContainer {
+  float: left;
+  display: flex;
+  justify-content: space-between;
+  width: 35%;
+}
+
+#LogoButton:hover {
+  filter: brightness(120%);
 }
 
 .NameHeader {
-  font-family: var(--boldFont);
-  font-size: 5.5em;
+  font: 5.5em var(--boldFont);
   margin-bottom: 0;
 }
 
@@ -67,16 +92,41 @@ body {
   box-sizing: border-box;
 }
 
+.PortfolioLinks {
+  font: 1.2em var(--boldFont);
+  text-decoration: none;
+  color: var(--motifColor);
+}
+
+.PortfolioLinks:hover {
+  color: var(--motifColorActive);
+}
+
 .PortraitImage {
   max-width: 85%;
   max-height: 85%;
 }
 
+.ProjectsContainer {
+  background: rgb(212, 212, 212);
+  background: linear-gradient(
+    0deg,
+    rgb(187, 187, 187) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  height: 100vh;
+  width: 100%;
+  border-top: 5px solid black;
+}
+
+.ProjectsHeader {
+  font: 3em var(--boldFont);
+  text-align: center;
+}
+
 .Subtitle {
-  font-family: Inconsolata-Medium;
-  font-weight: 400;
+  font: 2.7em var(--codeFont);
   margin-top: 0;
   color: grey;
-  font-size: 2.7em;
   float: left;
 }
