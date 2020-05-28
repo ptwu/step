@@ -1,20 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <meta charset="UTF-8" />
+    <title>My Portfolio | Peter Wu</title>
+    <link rel="stylesheet" href="constants.css" />
+    <link rel="stylesheet" href="style.css" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script async src="script.js"></script>
   </head>
   <body>
-    <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+    <div class="NavbarWrap">
+      <a href="#" id="logoButton">
+        <img src="/assets/images/logo.png" alt="Peter Wu logo" width="72px" />
+      </a>
+    </div>
+    <div class="HeroContainer">
+      <div class="HeroLeft">
+        <h1 class="NameHeader">Peter Wu</h1>
+        <h2 class="Subtitle">&lt;Full Stack Developer / &gt; and CS Student</h2>
+        <p class="HeroText">
+          I'm a freshman at Cornell who likes to make things with the end goal
+          of making a marked improvement in our lives!
+        </p>
+        <p>Click here to get a random fact about Peter:</p>
+        <button onclick="addRandomFact()">Click Me</button>
+        <div id="fact-container"></div>
+      </div>
+      <div class="HeroRight">
+        <img
+          src="/assets/images/peter.JPG"
+          alt="Portait photo of Peter at Cornell"
+          style="max-width: 85%; max-height: 85%;"
+        />
+      </div>
     </div>
   </body>
 </html>

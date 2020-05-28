@@ -1,9 +1,65 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+body {
+  font-family: var(--defaultFont);
+  margin: 0;
 }
 
-#greeting-container {
+#fact-container {
   margin-top: 20px;
+}
+
+.HeroContainer {
+  background: var(--defaultBGColor);
+  width: 100%;
+  height: 95vh;
+  display: flex;
+}
+
+.HeroLeft {
+  width: 60%;
+  margin: 0 3em 0 3em;
+}
+
+.HeroRight {
+  display: inherit;
+  width: 40%;
+  background: linear-gradient(
+    45deg,
+    rgba(175, 58, 180, 1),
+    rgba(255, 90, 90, 1),
+    rgba(252, 176, 69, 1)
+  );
+  justify-content: center;
+  align-items: center;
+}
+
+.HeroText {
+  font-size: 2.5em;
+}
+
+#logoButton:hover {
+  filter: brightness(110%);
+}
+
+.NameHeader {
+  font-family: var(--boldFont);
+  font-size: 5.5em;
+  margin-bottom: 0;
+}
+
+.NavbarWrap {
+  width: 100%;
+  background-color: rgb(59, 59, 59);
+  padding: 0.5em 0 0.5em 2em;
+  box-sizing: border-box;
+}
+
+.PortraitImage {
+  max-width: 85%;
+  max-height: 85%;
+}
+
+.Subtitle {
+  font-weight: 400;
+  margin-top: 0;
+  color: grey;
 }

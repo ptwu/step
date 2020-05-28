@@ -1,0 +1,19 @@
+/* Constants for use in this portfolio project. Represents shared UI
+properties across all possible pages */
+
+:root {
+  --defaultFont: Muli-Medium;
+  --boldFont: Muli-Bold;
+  --defaultBGColor: whitesmoke;
+}
+
+@font-face {
+  font-family: Muli-Medium;
+  src: url("./assets/font/Muli-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Muli-Bold;
+  font-weight: bold;
+  src: url("./assets/font/Muli-Bold.ttf") format("truetype");
+}
