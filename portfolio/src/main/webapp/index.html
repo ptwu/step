@@ -5,35 +5,57 @@
     <title>My Portfolio | Peter Wu</title>
     <link rel="stylesheet" href="constants.css" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <script async src="script.js"></script>
   </head>
   <body>
-    <div class="NavbarWrap">
-      <a href="#" id="logoButton">
+    <div class="navbar-wrap">
+      <a href="#" id="logo-button">
         <img src="/assets/images/logo.png" alt="Peter Wu logo" width="72px" />
       </a>
     </div>
-    <div class="HeroContainer">
-      <div class="HeroLeft">
-        <h1 class="NameHeader">Peter Wu</h1>
-        <h2 class="Subtitle">&lt;Full Stack Developer / &gt; and CS Student</h2>
-        <p class="HeroText">
-          I'm a freshman at Cornell who likes to make things with the end goal
-          of making a marked improvement in our lives!
+    <div class="hero-container">
+      <div class="hero-left">
+        <h1 class="name-header">Peter Wu</h1>
+        <h2 class="subtitle">
+          &lt;Full Stack Developer /&gt; and CS Student
+          <div id="blinking-text">_</div>
+        </h2>
+        <p class="desc-text">
+          I'm a freshman at Cornell who likes to build things that make marked
+          improvements on our lives.
         </p>
-        <p>Click here to get a random fact about Peter:</p>
-        <button onclick="addRandomFact()">Click Me</button>
-        <div id="fact-container"></div>
+
+        <div class="links-container">
+          <a href="https://github.com/ptwu" class="portfolio-links">GitHub</a>
+          <a href="https://linkedin.com/in/peterlingwu" class="portfolio-links"
+            >LinkedIn</a
+          >
+          <a href="/assets/docs/Peter_Wu_Resume.pdf" class="portfolio-links"
+            >Résumé</a
+          >
+        </div>
+        <div class="cta-button-container">
+          <button
+            type="button"
+            class="learn-more-button"
+            onClick="scrollToProjects()"
+          >
+            Learn More
+          </button>
+        </div>
       </div>
-      <div class="HeroRight">
+      <div class="hero-right">
         <img
           src="/assets/images/peter.JPG"
           alt="Portait photo of Peter at Cornell"
           style="max-width: 85%; max-height: 85%;"
         />
       </div>
+    </div>
+    <div class="projects-container" id="projects">
+      <h1 class="projects-header">Projects</h1>
     </div>
   </body>
 </html>

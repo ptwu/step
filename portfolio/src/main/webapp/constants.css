@@ -4,7 +4,15 @@ properties across all possible pages */
 :root {
   --defaultFont: Muli-Medium;
   --boldFont: Muli-Bold;
+  --codeFont: Inconsolata-Medium;
   --defaultBGColor: whitesmoke;
+  --motifColor: #2693ff;
+  --motifColorActive: #025ebb;
+}
+
+@font-face {
+  font-family: Inconsolata-Medium;
+  src: url("./assets/font/Inconsolata-Medium.ttf") format("truetype");
 }
 
 @font-face {

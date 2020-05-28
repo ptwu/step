@@ -3,63 +3,125 @@ body {
   margin: 0;
 }
 
-#fact-container {
-  margin-top: 20px;
+#blinking-text {
+  float: right;
 }
 
-.HeroContainer {
+.cta-button-container {
+  clear: left;
+}
+
+.desc-text {
+  margin-top: 0;
+  float: left;
+  font-size: 2.5em;
+}
+
+.hero-container {
   background: var(--defaultBGColor);
-  width: 100%;
-  height: 95vh;
   display: flex;
+  height: 95vh;
+  width: 100%;
 }
 
-.HeroLeft {
-  width: 60%;
+.hero-left {
   margin: 0 3em 0 3em;
+  width: 60%;
 }
 
-.HeroRight {
-  display: inherit;
-  width: 40%;
+.hero-right {
+  align-items: center;
   background: linear-gradient(
     45deg,
     rgba(175, 58, 180, 1),
     rgba(255, 90, 90, 1),
     rgba(252, 176, 69, 1)
   );
+  display: inherit;
   justify-content: center;
-  align-items: center;
+  width: 40%;
 }
 
-.HeroText {
-  font-size: 2.5em;
+.icon-button {
+  background-color: grey;
+  border: none;
+  border-radius: 50%;
+  float: left;
+  padding: 4em;
+  width: 1.8em;
 }
 
-#logoButton:hover {
-  filter: brightness(110%);
-}
-
-.NameHeader {
+.learn-more-button {
+  background: var(--motifColor);
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 0 40px hsl(209, 100%, 77%);
+  color: white;
   font-family: var(--boldFont);
-  font-size: 5.5em;
+  font-size: 24px;
+  line-height: 50px;
+  margin-top: 2.5em;
+  position: absolute;
+  width: 18%;
+}
+
+.learn-more-button:hover {
+  background: var(--motifColorActive);
+  cursor: pointer;
+}
+
+.links-container {
+  display: flex;
+  float: left;
+  justify-content: space-between;
+  width: 35%;
+}
+
+#logo-button:hover {
+  filter: brightness(120%);
+}
+
+.name-header {
+  font: 5.5em var(--boldFont);
   margin-bottom: 0;
 }
 
-.NavbarWrap {
-  width: 100%;
+.navbar-wrap {
   background-color: rgb(59, 59, 59);
-  padding: 0.5em 0 0.5em 2em;
   box-sizing: border-box;
+  padding: 0.5em 0 0.5em 2em;
+  width: 100%;
 }
 
-.PortraitImage {
-  max-width: 85%;
-  max-height: 85%;
+.portfolio-links {
+  color: var(--motifColor);
+  font: 1.2em var(--boldFont);
+  text-decoration: none;
 }
 
-.Subtitle {
-  font-weight: 400;
-  margin-top: 0;
+.portfolio-links:hover {
+  color: var(--motifColorActive);
+}
+
+.projects-container {
+  background: linear-gradient(
+    0deg,
+    rgb(187, 187, 187) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  border-top: 5px solid black;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.projects-header {
+  font: 3em var(--boldFont);
+  text-align: center;
+}
+
+.subtitle {
   color: grey;
+  float: left;
+  font: 2.7em var(--codeFont);
+  margin-top: 0;
 }
