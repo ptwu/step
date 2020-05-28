@@ -3,33 +3,33 @@ body {
   margin: 0;
 }
 
-#BlinkingText {
+#blinking-text {
   float: right;
 }
 
-.CTAButtonContainer {
+.cta-button-container {
   clear: left;
 }
 
-.DescText {
+.desc-text {
   margin-top: 0;
   float: left;
   font-size: 2.5em;
 }
 
-.HeroContainer {
+.hero-container {
   background: var(--defaultBGColor);
   display: flex;
   height: 95vh;
   width: 100%;
 }
 
-.HeroLeft {
+.hero-left {
   margin: 0 3em 0 3em;
   width: 60%;
 }
 
-.HeroRight {
+.hero-right {
   align-items: center;
   background: linear-gradient(
     45deg,
@@ -42,7 +42,7 @@ body {
   width: 40%;
 }
 
-.IconButton {
+.icon-button {
   background-color: grey;
   border: none;
   border-radius: 50%;
@@ -51,7 +51,7 @@ body {
   width: 1.8em;
 }
 
-.LearnMoreButton {
+.learn-more-button {
   background: var(--motifColor);
   border: none;
   border-radius: 50px;
@@ -65,66 +65,61 @@ body {
   width: 18%;
 }
 
-.LearnMoreButton:hover {
+.learn-more-button:hover {
   background: var(--motifColorActive);
   cursor: pointer;
 }
 
-.LinksContainer {
+.links-container {
   display: flex;
   float: left;
   justify-content: space-between;
   width: 35%;
 }
 
-#LogoButton:hover {
+#logo-button:hover {
   filter: brightness(120%);
 }
 
-.NameHeader {
+.name-header {
   font: 5.5em var(--boldFont);
   margin-bottom: 0;
 }
 
-.NavbarWrap {
+.navbar-wrap {
   background-color: rgb(59, 59, 59);
   box-sizing: border-box;
   padding: 0.5em 0 0.5em 2em;
   width: 100%;
 }
 
-.PortfolioLinks {
+.portfolio-links {
   color: var(--motifColor);
   font: 1.2em var(--boldFont);
   text-decoration: none;
 }
 
-.PortfolioLinks:hover {
+.portfolio-links:hover {
   color: var(--motifColorActive);
 }
 
-.PortraitImage {
-  max-height: 85%;
-  max-width: 85%;
-}
-
-.ProjectsContainer {
+.projects-container {
   background: linear-gradient(
     0deg,
     rgb(187, 187, 187) 0%,
     rgba(255, 255, 255, 1) 100%
   );
   border-top: 5px solid black;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
 }
 
-.ProjectsHeader {
+.projects-header {
   font: 3em var(--boldFont);
   text-align: center;
 }
 
-.Subtitle {
+.subtitle {
   color: grey;
   float: left;
   font: 2.7em var(--codeFont);

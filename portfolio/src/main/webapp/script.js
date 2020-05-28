@@ -33,9 +33,9 @@ let alternateOnOff = false;
 // Interval for repeated blinking text effect on page
 setInterval(() => {
   if (alternateOnOff) {
-    document.getElementById("BlinkingText").style.opacity = 0;
+    document.getElementById("blinking-text").style.opacity = 0;
   } else {
-    document.getElementById("BlinkingText").style.opacity = 1;
+    document.getElementById("blinking-text").style.opacity = 1;
   }
   alternateOnOff = !alternateOnOff;
 }, 500);
