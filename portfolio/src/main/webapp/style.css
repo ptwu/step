@@ -1,48 +1,14 @@
-@font-face {
-  font-family: Muli-Medium;
-  src: url("./assets/font/Muli-Medium.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Muli-Bold;
-  font-weight: bold;
-  src: url("./assets/font/Muli-Bold.ttf") format("truetype");
-}
-
 body {
-  font-family: Muli-Medium;
+  font-family: var(--defaultFont);
   margin: 0;
 }
 
-h1 {
-  font-family: Muli-Bold;
-  font-size: 5.5em;
-  margin-bottom: 0;
-}
-
-.subtitle {
-  font-weight: 400;
-  margin-top: 0;
-  color: grey;
-}
-
-p {
-  font-size: 2.5em;
-}
-
-.NavbarWrap {
-  width: 100%;
-  background-color: rgb(59, 59, 59);
-  padding: 0.5em 0 0.5em 2em;
-  box-sizing: border-box;
-}
-
-#logoButton:hover {
-  filter: brightness(110%);
+#fact-container {
+  margin-top: 20px;
 }
 
 .HeroContainer {
-  background: whitesmoke;
+  background: var(--defaultBGColor);
   width: 100%;
   height: 95vh;
   display: flex;
@@ -66,11 +32,34 @@ p {
   align-items: center;
 }
 
-#fact-container {
-  margin-top: 20px;
+.HeroText {
+  font-size: 2.5em;
+}
+
+#logoButton:hover {
+  filter: brightness(110%);
+}
+
+.NameHeader {
+  font-family: var(--boldFont);
+  font-size: 5.5em;
+  margin-bottom: 0;
+}
+
+.NavbarWrap {
+  width: 100%;
+  background-color: rgb(59, 59, 59);
+  padding: 0.5em 0 0.5em 2em;
+  box-sizing: border-box;
 }
 
 .PortraitImage {
   max-width: 85%;
   max-height: 85%;
+}
+
+.Subtitle {
+  font-weight: 400;
+  margin-top: 0;
+  color: grey;
 }
