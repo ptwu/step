@@ -16,10 +16,43 @@ body {
   max-width: 30%;
   overflow: hidden;
   position: relative;
+  padding-bottom: 90px;
+}
+
+.card-cta {
+  bottom: 0;
+  color: white;
+  display: inline-block;
+  font-size: 1.2em;
+  left: 0;
+  margin-top: 10px;
+  padding-bottom: 25px;
+  padding-top: 28px;
+  position: absolute;
+  text-decoration: none;
+  width: 100%;
+}
+
+.card-cta:hover {
+  filter: brightness(90%);
 }
 
 .card:hover {
   box-shadow: 0 5px 10px rgba(80, 80, 80, 0.1), 0 6px rgba(78, 78, 78, 0.2);
+}
+
+.card-text {
+  line-height: 150%;
+  margin: 1.5em 0.5em 0 0.8em;
+  padding-bottom: 10px;
+  text-align: left;
+}
+
+.card-title {
+  font-family: var(--boldFont);
+  font-size: 1.5em;
+  margin-left: 0.5em;
+  text-align: left;
 }
 
 .cta-button-container {
@@ -121,8 +154,8 @@ body {
 .projects-container {
   background: linear-gradient(
     0deg,
-    rgb(187, 187, 187) 0%,
-    rgba(255, 255, 255, 1) 100%
+    rgb(146, 146, 146) 0%,
+    rgb(255, 255, 255) 100%
   );
   border-top: 5px solid black;
   min-height: 100vh;
