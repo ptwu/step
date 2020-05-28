@@ -18,50 +18,50 @@ body {
 
 .HeroContainer {
   background: var(--defaultBGColor);
-  width: 100%;
-  height: 95vh;
   display: flex;
+  height: 95vh;
+  width: 100%;
 }
 
 .HeroLeft {
-  width: 60%;
   margin: 0 3em 0 3em;
+  width: 60%;
 }
 
 .HeroRight {
-  display: inherit;
-  width: 40%;
+  align-items: center;
   background: linear-gradient(
     45deg,
     rgba(175, 58, 180, 1),
     rgba(255, 90, 90, 1),
     rgba(252, 176, 69, 1)
   );
+  display: inherit;
   justify-content: center;
-  align-items: center;
+  width: 40%;
 }
 
 .IconButton {
-  border-radius: 50%;
-  padding: 4em;
-  width: 1.8em;
-  float: left;
   background-color: grey;
   border: none;
+  border-radius: 50%;
+  float: left;
+  padding: 4em;
+  width: 1.8em;
 }
 
 .LearnMoreButton {
-  border: none;
-  margin-top: 4em;
-  font-family: var(--boldFont);
   background: var(--motifColor);
+  border: none;
   border-radius: 50px;
-  width: 18%;
-  line-height: 50px;
-  font-size: 24px;
-  color: white;
   box-shadow: 0 0 40px hsl(209, 100%, 77%);
+  color: white;
+  font-family: var(--boldFont);
+  font-size: 24px;
+  line-height: 50px;
+  margin-top: 4em;
   position: absolute;
+  width: 18%;
 }
 
 .LearnMoreButton:hover {
@@ -70,8 +70,8 @@ body {
 }
 
 .LinksContainer {
-  float: left;
   display: flex;
+  float: left;
   justify-content: space-between;
   width: 35%;
 }
@@ -86,16 +86,16 @@ body {
 }
 
 .NavbarWrap {
-  width: 100%;
   background-color: rgb(59, 59, 59);
-  padding: 0.5em 0 0.5em 2em;
   box-sizing: border-box;
+  padding: 0.5em 0 0.5em 2em;
+  width: 100%;
 }
 
 .PortfolioLinks {
+  color: var(--motifColor);
   font: 1.2em var(--boldFont);
   text-decoration: none;
-  color: var(--motifColor);
 }
 
 .PortfolioLinks:hover {
@@ -103,20 +103,19 @@ body {
 }
 
 .PortraitImage {
-  max-width: 85%;
   max-height: 85%;
+  max-width: 85%;
 }
 
 .ProjectsContainer {
-  background: rgb(212, 212, 212);
   background: linear-gradient(
     0deg,
     rgb(187, 187, 187) 0%,
     rgba(255, 255, 255, 1) 100%
   );
+  border-top: 5px solid black;
   height: 100vh;
   width: 100%;
-  border-top: 5px solid black;
 }
 
 .ProjectsHeader {
@@ -125,8 +124,8 @@ body {
 }
 
 .Subtitle {
-  font: 2.7em var(--codeFont);
-  margin-top: 0;
   color: grey;
   float: left;
+  font: 2.7em var(--codeFont);
+  margin-top: 0;
 }
