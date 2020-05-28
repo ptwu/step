@@ -12,6 +12,7 @@ body {
 }
 
 .DescText {
+  margin-top: 0;
   float: left;
   font-size: 2.5em;
 }
@@ -52,7 +53,7 @@ body {
 
 .LearnMoreButton {
   border: none;
-  margin-top: 4em;
+  margin-top: 2.5em;
   font-family: var(--boldFont);
   background: var(--motifColor);
   border-radius: 50px;
