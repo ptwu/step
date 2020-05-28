@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <title>My Portfolio | Peter Wu</title>
+    <link rel="stylesheet" href="constants.css" />
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js"></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <script async src="script.js"></script>
   </head>
   <body>
     <div class="NavbarWrap">
@@ -14,18 +17,20 @@
     </div>
     <div class="HeroContainer">
       <div class="HeroLeft">
-        <h1>Peter Wu</h1>
-        <h2 class="subtitle">
-          &lt;Full Stack Developer /&gt; and CS Student
+        <h1 class="NameHeader">Peter Wu</h1>
+        <h2 class="Subtitle">
+          &lt;Full Stack Developer / &gt; and CS Student
           <div id="BlinkingText">_</div>
         </h2>
         <p class="DescText">
-          I'm a freshman at Cornell who likes to build things that make marked
-          improvements on our lives.
+          I'm a freshman at Cornell who likes to make things with the end goal
+          of making a marked improvement in our lives!
         </p>
-        <p>Click here to get a random fact about Peter:</p>
-        <button onclick="addRandomFact()">Click Me</button>
-        <div id="fact-container"></div>
+
+        <div class="LinksContainer">
+          <a href="https://github.com/ptwu">GitHub</a>
+          <a href="https://linkedin.com/in/peterlingwu">LinkedIn</a>
+        </div>
       </div>
       <div class="HeroRight">
         <img
