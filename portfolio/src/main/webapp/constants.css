@@ -10,6 +10,23 @@ properties across all possible pages */
   --motifColorActive: #025ebb;
 }
 
+.blue-bg {
+  background: #0d66ff;
+}
+
+.green-bg {
+  background: #008622;
+}
+
+.red-bg {
+  background: #d10000;
+}
+
+.yellow-bg {
+  background: #fad503;
+  color: black;
+}
+
 @font-face {
   font-family: Inconsolata-Medium;
   src: url("./assets/font/Inconsolata-Medium.ttf") format("truetype");
