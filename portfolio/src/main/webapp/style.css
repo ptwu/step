@@ -60,15 +60,15 @@ body {
 }
 
 .desc-text {
-  margin-top: 0;
   float: left;
   font-size: 2.5em;
+  margin-top: 0;
 }
 
 .footer-white {
-  text-align: center;
   background: white;
   padding: 32px;
+  text-align: center;
 }
 
 .hero-container {
