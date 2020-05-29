@@ -29,8 +29,10 @@ function scrollToProjects() {
   document.getElementById("projects").scrollIntoView({ behavior: "smooth" });
 }
 
-// Recursive function that fades out the tw-text div gradually over one second.
-// Takes an initial opacity value to start out.
+/**
+ * Recursive function that fades out the tw-text div gradually over one second.
+ * @param {number} currOpacity
+ */
 function fadeOutText(currOpacity) {
   setTimeout(() => {
     document.getElementById("tw-text").style.opacity = currOpacity;
@@ -40,9 +42,12 @@ function fadeOutText(currOpacity) {
   }, 100);
 }
 
-// Typewriter effect loop that applies the effect to each string in the facts
-// array. Takes the current char index being written and the index of the current fact
-// in the facts array.
+/**
+ * Typewriter effect loop that applies the effect to each string in the facts
+ * array. Takes the current char index being written and the index of the current fact
+ * in the facts array.
+ * @param {number} charIndex @param {number} currentFactIndex
+ */
 function typeWriterEffect(charIndex, currentFactIndex) {
   const facts = [
     "I'm a rising sophomore at Cornell University.",
