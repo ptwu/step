@@ -9,7 +9,7 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <script async src="script.js"></script>
   </head>
-  <body>
+  <body onload="typeWriterEffect(0, 0)">
     <div class="navbar-wrap">
       <a href="#" id="logo-button">
         <img src="/assets/images/logo.png" alt="Peter Wu logo" width="72px" />
@@ -22,10 +22,7 @@
           &lt;Full Stack Developer /&gt; and CS Student
           <div id="blinking-text">_</div>
         </h2>
-        <p class="desc-text">
-          I'm a freshman at Cornell who likes to build things that make marked
-          improvements on our lives.
-        </p>
+        <p id="tw-text" class="desc-text"></p>
 
         <div class="links-container">
           <a href="https://github.com/ptwu" class="portfolio-links">GitHub</a>
@@ -160,10 +157,5 @@
         </div>
       </div>
     </div>
-    <footer class="footer-white">
-      Built from scratch with HTML + CSS + JavaScript.
-      <br />
-      © 2018-2020 Peter Wu.
-    </footer>
   </body>
 </html>
