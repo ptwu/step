@@ -60,7 +60,7 @@ body {
 }
 
 .desc-text {
-  float: left;
+  clear: left;
   font-size: 2.5em;
   margin-top: 0;
 }

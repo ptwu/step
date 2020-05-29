@@ -12,21 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random fact about Peter to the page.
- */
-function addRandomFact() {
-  const facts = [
-    "I was born in Trenton, NJ.",
-    "I like bird watching!",
-    "I play badminton a lot!",
-    "My Chinese name is Wu Lingrui (吴灵锐).",
-  ];
-
-  // Pick a random fact.
-  const fact = facts[Math.floor(Math.random() * facts.length)];
-}
-
 // true represents that the blinking text is hidden, false shows
 let alternateOnOff = false;
 
@@ -42,4 +27,50 @@ setInterval(() => {
 
 function scrollToProjects() {
   document.getElementById("projects").scrollIntoView({ behavior: "smooth" });
+}
+
+/**
+ * Recursive function that fades out the tw-text div gradually over one second.
+ * @param {number} currOpacity
+ */
+function fadeOutText(currOpacity) {
+  setTimeout(() => {
+    document.getElementById("tw-text").style.opacity = currOpacity;
+    if (currOpacity > 0) {
+      fadeOutText(currOpacity - 0.1);
+    }
+  }, 100);
+}
+
+/**
+ * Typewriter effect loop that applies the effect to each string in the facts
+ * array. Takes the current char index being written and the index of the current fact
+ * in the facts array.
+ * @param {number} charIndex @param {number} currentFactIndex
+ */
+function typeWriterEffect(charIndex, currentFactIndex) {
+  const facts = [
+    "I'm a rising sophomore at Cornell University.",
+    "I like making things that make a marked improvement on our lives.",
+    "I'm an avid badminton player!",
+    "My Chinese name is Wu Lingrui (吴灵锐).",
+  ];
+  const currentFact = facts[currentFactIndex];
+
+  if (charIndex < currentFact.length) {
+    document.getElementById("tw-text").innerHTML += currentFact.charAt(
+      charIndex
+    );
+    setTimeout(() => typeWriterEffect(charIndex + 1, currentFactIndex), 45);
+  } else {
+    fadeOutText(1);
+    setTimeout(() => {
+      document.getElementById("tw-text").innerHTML = "&nbsp;";
+      setTimeout(() => {
+        //reset fade out
+        document.getElementById("tw-text").style.opacity = 1;
+        typeWriterEffect(0, (currentFactIndex + 1) % facts.length);
+      }, 55);
+    }, 2500);
+  }
 }
