@@ -55,6 +55,18 @@ body {
   text-align: left;
 }
 
+.comments-container {
+  background: whitesmoke;
+  min-height: 30vh;
+  text-align: center;
+}
+
+.comments-header {
+  font: 2em var(--boldFont);
+  margin-top: 0;
+  padding-top: 1em;
+}
+
 .cta-button-container {
   clear: left;
 }
