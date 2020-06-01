@@ -86,7 +86,12 @@ function typeWriterEffect(charIndex, currentFactIndex) {
  * setting the `comments-container` div to the text.
  */
 async function displayServletContent() {
-  const res = await fetch('/data');
-  const text = await res.text();
-  document.getElementById('comments-section').innerText = text;
+  const res = await fetch("/data");
+  const json = await res.json();
+  if (!Array.isArray(json)) {
+    throw new Error("Response data is not an array");
+  }
+
+  document.getElementById("comments-section").innerHTML =
+    "<ul class=\"comments-list\">" + json.map((comment) => `<li>${comment}</li>`).join("") + "</ul>";
 }
