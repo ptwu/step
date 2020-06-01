@@ -55,6 +55,12 @@ body {
   text-align: left;
 }
 
+.comments-area {
+  width: 50%;
+  font: 1.5em var(--defaultFont);
+  padding: 0.5em 0.5em 0.5em 0.5em;
+}
+
 .comments-container {
   background: whitesmoke;
   min-height: 30vh;
@@ -67,9 +73,17 @@ body {
   padding-top: 1em;
 }
 
+.comments-label {
+  font: 1.1em var(--boldFont);
+}
+
 .comments-list {
   list-style-type: none;
   padding: 0;
+}
+
+.comments-field {
+  font: 1.5em var(--defaultFont);
 }
 
 .cta-button-container {
@@ -128,8 +142,7 @@ body {
   border-radius: 50px;
   box-shadow: 0 0 40px hsl(209, 100%, 77%);
   color: white;
-  font-family: var(--boldFont);
-  font-size: 24px;
+  font-family: 24px var(--boldFont);
   line-height: 50px;
   margin-top: 2.5em;
   position: absolute;

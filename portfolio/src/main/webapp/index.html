@@ -160,6 +160,32 @@
     <div class="comments-container">
       <h2 class="comments-header">Comments</h2>
       <div id="comments-section"></div>
+      <hr />
+      <form action="/data" method="POST">
+        <h3>Add a Comment</h3>
+        <label for="comment-username" class="comments-label">Your Name:</label>
+        <br />
+        <input
+          type="text"
+          id="comment-username"
+          name="comment-username"
+          class="comments-field"
+          required
+        />
+        <br /><br />
+        <label for="comment-username" class="comments-label"
+          >Your Comment:
+        </label>
+        <br />
+        <textarea
+          name="comment-input"
+          placeholder="Enter your comment here..."
+          class="comments-area"
+          required
+        ></textarea>
+        <br /><br />
+        <input type="submit" />
+      </form>
     </div>
     <footer class="footer-white">
       Built from scratch with HTML + CSS + JavaScript.
