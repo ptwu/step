@@ -67,6 +67,11 @@ body {
   padding-top: 1em;
 }
 
+.comments-list {
+  list-style-type: none;
+  padding: 0;
+}
+
 .cta-button-container {
   clear: left;
 }
