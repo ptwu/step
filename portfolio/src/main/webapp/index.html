@@ -1,166 +1,144 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>My Portfolio | Peter Wu</title>
-    <link rel="stylesheet" href="constants.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <script async src="script.js"></script>
-  </head>
-  <body onload="typeWriterEffect(0, 0)">
-    <div class="navbar-wrap">
-      <a href="#" id="logo-button">
-        <img src="/assets/images/logo.png" alt="Peter Wu logo" width="72px" />
-      </a>
-    </div>
-    <div class="hero-container">
-      <div class="hero-left">
-        <h1 class="name-header">Peter Wu</h1>
-        <h2 class="subtitle">
-          &lt;Full Stack Developer /&gt; and CS Student
-          <div id="blinking-text">_</div>
-        </h2>
-        <p id="tw-text" class="desc-text"></p>
 
-        <div class="links-container">
-          <a href="https://github.com/ptwu" class="portfolio-links">GitHub</a>
-          <a href="https://linkedin.com/in/peterlingwu" class="portfolio-links"
-            >LinkedIn</a
-          >
-          <a href="/assets/docs/Peter_Wu_Resume.pdf" class="portfolio-links"
-            >Résumé</a
-          >
-        </div>
-        <div class="cta-button-container">
-          <button
-            type="button"
-            class="learn-more-button"
-            onClick="scrollToProjects()"
-          >
-            Learn More
-          </button>
-        </div>
-      </div>
-      <div class="hero-right">
-        <img
-          src="/assets/images/peter.JPG"
-          alt="Portait photo of Peter at Cornell"
-          style="max-width: 85%; max-height: 85%;"
-        />
-      </div>
-    </div>
-    <div class="projects-container" id="projects">
-      <h1 class="projects-header">Projects</h1>
+<head>
+  <meta charset="UTF-8" />
+  <title>My Portfolio | Peter Wu</title>
+  <link rel="stylesheet" href="constants.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <script async src="script.js"></script>
+</head>
 
-      <div class="projects-row">
-        <div class="card">
-          <p class="card-title">Samwise</p>
-          <hr />
-          <p class="card-text">
-            Samwise is a homework + schedule planner for students at Cornell
-            University, built with React, Redux, Firebase, and Node.js. Designed
-            and developed by the
-            <a href="https://cornelldti.org">
-              Cornell Design & Tech Initiative.
-            </a>
-          </p>
-          <a
-            href="https://samwise.today"
-            class="card-cta blue-bg"
-            target="_blank"
-          >
-            LINK TO SITE
-          </a>
-        </div>
-        <div class="card">
-          <p class="card-title">Distributed Texas Hold 'Em</p>
-          <hr />
-          <p class="card-text">
-            Webapp implemented with Node.js, Socket.io, and Express.js allowing
-            for multiplayer gameplay across multiple devices using websockets.
-            Simulates a real Texas Hold 'Em poker game, with identical game
-            logic.
-          </p>
-          <a
-            href="https://poker.peterwu.dev"
-            class="card-cta red-bg"
-            target="_blank"
-          >
-            LINK TO SITE
-          </a>
-        </div>
-        <div class="card">
-          <p class="card-title">Pirate Maps</p>
-          <hr />
-          <p class="card-text">
-            Android mapping app made with Unity3D, made for helping new students
-            navigate through school. Uses Dijkstra's algorithm to find optimal
-            pathways between the "nodes" of school classrooms.
-          </p>
-          <a
-            href="https://play.google.com/store/apps/details?id=com.CSI.HSSPirateMaps"
-            class="card-cta yellow-bg"
-            target="_blank"
-          >
-            LINK TO PLAY STORE
-          </a>
-        </div>
+<body onload="init()">
+  <div class="navbar-wrap">
+    <a href="#" id="logo-button">
+      <img src="/assets/images/logo.png" alt="Peter Wu logo" width="72px" />
+    </a>
+  </div>
+  <div class="hero-container">
+    <div class="hero-left">
+      <h1 class="name-header">Peter Wu</h1>
+      <h2 class="subtitle">
+        &lt;Full Stack Developer /&gt; and CS Student
+        <div id="blinking-text">_</div>
+      </h2>
+      <p id="tw-text" class="desc-text"></p>
+
+      <div class="links-container">
+        <a href="https://github.com/ptwu" class="portfolio-links">GitHub</a>
+        <a href="https://linkedin.com/in/peterlingwu" class="portfolio-links">LinkedIn</a>
+        <a href="/assets/docs/Peter_Wu_Resume.pdf" class="portfolio-links">Résumé</a>
       </div>
-      <br />
-      <div class="projects-row">
-        <div class="card">
-          <p class="card-title">SmartSieve</p>
-          <hr />
-          <p class="card-text">
-            Chrome extension implementing the powerful Clarifai computer vision
-            API to analyze images, flagging them as safe or unsafe for work.
-          </p>
-          <a
-            href="https://chrome.google.com/webstore/detail/smart-sieve/gegngkeciggmgpjdahkffpdfgdldeeib?hl=en"
-            class="card-cta blue-bg"
-            target="_blank"
-          >
-            LINK TO CHROME WEB STORE
-          </a>
-        </div>
-        <div class="card">
-          <p class="card-title">Class Reveal</p>
-          <hr />
-          <p class="card-text">
-            Webapp made to crowdsource schedule and roster data for students
-            across the school district, reaching over 2,500 students in in the
-            summer of 2018. Built with Firebase + HTML5, CSS, and JS. The
-            current site is no longer in my control, and may have changed since.
-          </p>
-          <a
-            href="https://classreveal.com"
-            class="card-cta green-bg"
-            target="_blank"
-          >
-            LINK TO SITE
-          </a>
-        </div>
-        <div class="card">
-          <p class="card-title">WW-P Math Tournament</p>
-          <hr />
-          <p class="card-text">
-            The WW-P Mathematics Tournament website, powered by a HTML5 + CSS
-            frontend and a Google App Engine backend, houses a scoring and
-            problem submission database and advertises the annual competition,
-            which draws in over 500 students per year.
-          </p>
-          <a href="https://wwpme.org" class="card-cta red-bg" target="_blank">
-            LINK TO PLAY STORE
-          </a>
-        </div>
+      <div class="cta-button-container">
+        <button type="button" class="learn-more-button" onClick="scrollToProjects()">
+          Learn More
+        </button>
       </div>
     </div>
-    <footer class="footer-white">
-      Built from scratch with HTML + CSS + JavaScript.
-      <br />
-      © 2018-2020 Peter Wu.
-    </footer>
-  </body>
+    <div class="hero-right">
+      <img src="/assets/images/peter.JPG" alt="Portait photo of Peter at Cornell"
+        style="max-width: 85%; max-height: 85%;" />
+    </div>
+  </div>
+  <div class="projects-container" id="projects">
+    <h1 class="projects-header">Projects</h1>
+
+    <div class="projects-row">
+      <div class="card">
+        <p class="card-title">Samwise</p>
+        <hr />
+        <p class="card-text">
+          Samwise is a homework + schedule planner for students at Cornell
+          University, built with React, Redux, Firebase, and Node.js. Designed
+          and developed by the
+          <a href="https://cornelldti.org">
+            Cornell Design & Tech Initiative.
+          </a>
+        </p>
+        <a href="https://samwise.today" class="card-cta blue-bg" target="_blank">
+          LINK TO SITE
+        </a>
+      </div>
+      <div class="card">
+        <p class="card-title">Distributed Texas Hold 'Em</p>
+        <hr />
+        <p class="card-text">
+          Webapp implemented with Node.js, Socket.io, and Express.js allowing
+          for multiplayer gameplay across multiple devices using websockets.
+          Simulates a real Texas Hold 'Em poker game, with identical game
+          logic.
+        </p>
+        <a href="https://poker.peterwu.dev" class="card-cta red-bg" target="_blank">
+          LINK TO SITE
+        </a>
+      </div>
+      <div class="card">
+        <p class="card-title">Pirate Maps</p>
+        <hr />
+        <p class="card-text">
+          Android mapping app made with Unity3D, made for helping new students
+          navigate through school. Uses Dijkstra's algorithm to find optimal
+          pathways between the "nodes" of school classrooms.
+        </p>
+        <a href="https://play.google.com/store/apps/details?id=com.CSI.HSSPirateMaps" class="card-cta yellow-bg"
+          target="_blank">
+          LINK TO PLAY STORE
+        </a>
+      </div>
+    </div>
+    <br />
+    <div class="projects-row">
+      <div class="card">
+        <p class="card-title">SmartSieve</p>
+        <hr />
+        <p class="card-text">
+          Chrome extension implementing the powerful Clarifai computer vision
+          API to analyze images, flagging them as safe or unsafe for work.
+        </p>
+        <a href="https://chrome.google.com/webstore/detail/smart-sieve/gegngkeciggmgpjdahkffpdfgdldeeib?hl=en"
+          class="card-cta blue-bg" target="_blank">
+          LINK TO CHROME WEB STORE
+        </a>
+      </div>
+      <div class="card">
+        <p class="card-title">Class Reveal</p>
+        <hr />
+        <p class="card-text">
+          Webapp made to crowdsource schedule and roster data for students
+          across the school district, reaching over 2,500 students in in the
+          summer of 2018. Built with Firebase + HTML5, CSS, and JS. The
+          current site is no longer in my control, and may have changed since.
+        </p>
+        <a href="https://classreveal.com" class="card-cta green-bg" target="_blank">
+          LINK TO SITE
+        </a>
+      </div>
+      <div class="card">
+        <p class="card-title">WW-P Math Tournament</p>
+        <hr />
+        <p class="card-text">
+          The WW-P Mathematics Tournament website, powered by a HTML5 + CSS
+          frontend and a Google App Engine backend, houses a scoring and
+          problem submission database and advertises the annual competition,
+          which draws in over 500 students per year.
+        </p>
+        <a href="https://wwpme.org" class="card-cta red-bg" target="_blank">
+          LINK TO PLAY STORE
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="comments-container">
+    <h2 class="comments-header">Comments</h2>
+    <div id="comments-section"></div>
+  </div>
+  <footer class="footer-white">
+    Built from scratch with HTML + CSS + JavaScript.
+    <br />
+    © 2018-2020 Peter Wu.
+  </footer>
+</body>
+
 </html>

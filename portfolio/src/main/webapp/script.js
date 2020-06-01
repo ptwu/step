@@ -15,6 +15,12 @@
 // true represents that the blinking text is hidden, false shows
 let alternateOnOff = false;
 
+// Function to be run on index page load. Calls all initial functions.
+function init() {
+  typeWriterEffect(0, 0);
+  displayServletContent();
+}
+
 // Interval for repeated blinking text effect on page
 setInterval(() => {
   if (alternateOnOff) {
@@ -73,4 +79,14 @@ function typeWriterEffect(charIndex, currentFactIndex) {
       }, 55);
     }, 2500);
   }
+}
+
+/**
+ * Displays the plaintext as a result of calling the /data GET endpoint by
+ * setting the `comments-container` div to the text.
+ */
+async function displayServletContent() {
+  const res = await fetch('/data');
+  const text = await res.text();
+  document.getElementById('comments-section').innerText = text;
 }
