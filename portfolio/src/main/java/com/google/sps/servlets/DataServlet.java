@@ -18,6 +18,9 @@ import com.google.auto.value.AutoValue;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -37,9 +40,23 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<Comment> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      String name = (String) entity.getProperty("name");
+      String text = (String) entity.getProperty("text");
+      long timestamp = (long) entity.getProperty("timestamp");
+
+      Comment comment = Comment.create(name, text, timestamp);
+      comments.add(comment);
+    }
+
     response.setContentType("application/json;");
     Gson gson = new Gson();
-    String serializedJSON = gson.toJson("placeholder");
+    String serializedJSON = gson.toJson(comments);
     response.getWriter().println(serializedJSON);
   }
 
@@ -47,10 +64,12 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String username = request.getParameter("comment-username");
     String commentText = request.getParameter("comment-input");
+    long timestamp = System.currentTimeMillis();
 
     Entity commentEntity = new Entity("comment");
     commentEntity.setProperty("name", username);
     commentEntity.setProperty("text", commentText);
+    commentEntity.setProperty("timestamp", timestamp);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
@@ -58,17 +77,19 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-   * Value class for a comment, complete with a username and body text. Generated
-   * with AutoValue.
+   * Value class for a comment, complete with a username, body text, and timestamp
+   * in milliseconds since the Unix epoch. Generated using AutoValue.
    */
   @AutoValue
   abstract static class Comment {
-    static Comment create(String name, String text) {
-      return new AutoValue_DataServlet_Comment(name, text);
+    static Comment create(String name, String text, long timestamp) {
+      return new AutoValue_DataServlet_Comment(name, text, timestamp);
     }
 
     abstract String name();
 
     abstract String text();
+
+    abstract long timestamp();
   }
 }
