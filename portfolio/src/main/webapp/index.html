@@ -164,27 +164,24 @@
       <form action="/data" method="POST">
         <h3>Add a Comment</h3>
         <label for="comment-username" class="comments-label">Your Name:</label>
-        <br />
         <input
           type="text"
           id="comment-username"
+          placeholder="John Doe"
           name="comment-username"
           class="comments-field"
           required
         />
-        <br /><br />
         <label for="comment-username" class="comments-label"
           >Your Comment:
         </label>
-        <br />
         <textarea
           name="comment-input"
           placeholder="Enter your comment here..."
           class="comments-area"
           required
         ></textarea>
-        <br /><br />
-        <input type="submit" />
+        <input type="submit" class="comments-submit" />
       </form>
     </div>
     <footer class="footer-white">
