@@ -45,10 +45,13 @@ public class DataServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
 
     List<Comment> comments = new ArrayList<>();
+    final String PROPERTY_NAME = "name";
+    final String PROPERTY_TEXT = "text";
+    final String PROPERTY_TIMESTAMP = "timestamp";
     for (Entity entity : results.asIterable()) {
-      String name = (String) entity.getProperty("name");
-      String text = (String) entity.getProperty("text");
-      long timestamp = (long) entity.getProperty("timestamp");
+      String name = (String) entity.getProperty(PROPERTY_NAME);
+      String text = (String) entity.getProperty(PROPERTY_TEXT);
+      long timestamp = (long) entity.getProperty(PROPERTY_TIMESTAMP);
 
       Comment comment = Comment.create(name, text, timestamp);
       comments.add(comment);
