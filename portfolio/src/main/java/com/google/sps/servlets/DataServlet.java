@@ -15,6 +15,12 @@
 package com.google.sps.servlets;
 
 import com.google.auto.value.AutoValue;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -32,20 +38,30 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private List<Comment> commentsList;
-
-  @Override
-  public void init() {
-    commentsList = new ArrayList<>();
-    commentsList.add(Comment.create("Alice", "Wow, this website is great!"));
-    commentsList.add(Comment.create("Bob", "Cool website!"));
-  }
+  private static final String COMMENT_ENTITY_PROPERTY_NAME = "name";
+  private static final String COMMENT_ENTITY_PROPERTY_TEXT = "text";
+  private static final String COMMENT_ENTITY_PROPERTY_TIMESTAMP = "timestamp";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Query query = new Query("comment").addSort(COMMENT_ENTITY_PROPERTY_TIMESTAMP, SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<Comment> comments = new ArrayList<>();
+
+    for (Entity entity : results.asIterable()) {
+      String name = (String) entity.getProperty(COMMENT_ENTITY_PROPERTY_NAME);
+      String text = (String) entity.getProperty(COMMENT_ENTITY_PROPERTY_TEXT);
+      long timestamp = (long) entity.getProperty(COMMENT_ENTITY_PROPERTY_TIMESTAMP);
+
+      Comment comment = Comment.create(name, text, timestamp);
+      comments.add(comment);
+    }
+
     response.setContentType("application/json;");
     Gson gson = new Gson();
-    String serializedJSON = gson.toJson(commentsList);
+    String serializedJSON = gson.toJson(comments);
     response.getWriter().println(serializedJSON);
   }
 
@@ -53,22 +69,32 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String username = request.getParameter("comment-username");
     String commentText = request.getParameter("comment-input");
-    commentsList.add(Comment.create(username, commentText));
+    long timestamp = System.currentTimeMillis();
+
+    Entity commentEntity = new Entity("comment");
+    commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_NAME, username);
+    commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_TEXT, commentText);
+    commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_TIMESTAMP, timestamp);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
     response.sendRedirect("/");
   }
 
   /**
-   * Value class for a comment, complete with a username and body text. Generated
-   * with AutoValue.
+   * Value class for a comment, complete with a username, body text, and timestamp
+   * in milliseconds since the Unix epoch. Generated using AutoValue.
    */
   @AutoValue
   abstract static class Comment {
-    static Comment create(String name, String text) {
-      return new AutoValue_DataServlet_Comment(name, text);
+    static Comment create(String name, String text, long timestamp) {
+      return new AutoValue_DataServlet_Comment(name, text, timestamp);
     }
 
     abstract String name();
 
     abstract String text();
+
+    abstract long timestamp();
   }
 }

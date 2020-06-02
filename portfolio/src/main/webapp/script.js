@@ -93,5 +93,9 @@ async function displayServletContent() {
   }
 
   document.getElementById("comments-section").innerHTML =
-    "<ul class=\"comments-list\">" + json.map(({name, text}) => `<li><b>${name}: </b>${text}</li>`).join("") + "</ul>";
+    '<ul class="comments-list">' +
+    json
+      .map(({ name, text, _ }) => `<li><b>${name}: </b>${text}</li>`)
+      .join("") +
+    "</ul>";
 }
