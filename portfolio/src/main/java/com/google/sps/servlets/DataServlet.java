@@ -15,6 +15,9 @@
 package com.google.sps.servlets;
 
 import com.google.auto.value.AutoValue;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -32,20 +35,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private List<Comment> commentsList;
-
-  @Override
-  public void init() {
-    commentsList = new ArrayList<>();
-    commentsList.add(Comment.create("Alice", "Wow, this website is great!"));
-    commentsList.add(Comment.create("Bob", "Cool website!"));
-  }
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json;");
     Gson gson = new Gson();
-    String serializedJSON = gson.toJson(commentsList);
+    String serializedJSON = gson.toJson("placeholder");
     response.getWriter().println(serializedJSON);
   }
 
@@ -53,7 +47,13 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String username = request.getParameter("comment-username");
     String commentText = request.getParameter("comment-input");
-    commentsList.add(Comment.create(username, commentText));
+
+    Entity commentEntity = new Entity("comment");
+    commentEntity.setProperty("name", username);
+    commentEntity.setProperty("text", commentText);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
     response.sendRedirect("/");
   }
 
