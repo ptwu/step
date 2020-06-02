@@ -28,6 +28,16 @@
       <artifactId>gson</artifactId>
       <version>2.8.6</version>
     </dependency>
+    <dependency>
+      <groupId>com.google.auto.value</groupId>
+      <artifactId>auto-value</artifactId>
+      <version>1.7.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.auto.value</groupId>
+      <artifactId>auto-value-annotations</artifactId>
+      <version>1.7.2</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -39,11 +49,22 @@
         <artifactId>appengine-maven-plugin</artifactId>
         <version>2.2.0</version>
         <configuration>
-          <!-- TODO: set project ID. -->
           <deploy.projectId>peterlwu-step-2020</deploy.projectId>
           <deploy.version>1</deploy.version>
         </configuration>
       </plugin>
+      <plugin>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <configuration>
+        <annotationProcessorPaths>
+          <path>
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value</artifactId>
+            <version>1.7.2</version>
+          </path>
+        </annotationProcessorPaths>
+      </configuration>
+    </plugin>
     </plugins>
   </build>
 </project>
