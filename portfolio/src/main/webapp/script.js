@@ -18,7 +18,7 @@ let alternateOnOff = false;
 // Function to be run on index page load. Calls all initial functions.
 function init() {
   typeWriterEffect(0, 0);
-  displayServletContent();
+  displayServletContent(5);
 }
 
 // Interval for repeated blinking text effect on page
@@ -82,20 +82,49 @@ function typeWriterEffect(charIndex, currentFactIndex) {
 }
 
 /**
- * Displays the plaintext as a result of calling the /data GET endpoint by
- * setting the `comments-container` div to the text.
+ * Renders the plaintext as a result of calling the /data GET endpoint by
+ * setting the `comments-container` div to the text with certain number of
+ * comments list.
+ * @param {number} numCommentsToShow. If === -1, then show all comments.
  */
-async function displayServletContent() {
-  const res = await fetch("/data");
+async function displayServletContent(numCommentsToShow) {
+  const res =
+    numCommentsToShow === -1
+      ? await fetch("/data")
+      : await fetch(`/data?list=${numCommentsToShow}`);
   const json = await res.json();
   if (!Array.isArray(json)) {
     throw new Error("Response data is not an array");
   }
 
   document.getElementById("comments-section").innerHTML =
-    '<ul class="comments-list">' +
-    json
-      .map(({ name, text, _ }) => `<li><b>${name}: </b>${text}</li>`)
-      .join("") +
-    "</ul>";
+    json.length === 0
+      ? "<h5>No comments to show.</h5>"
+      : '<ul class="comments-list">' +
+        json
+          .map(({ name, text, _ }) => `<li><b>${name}: </b>${text}</li>`)
+          .join("") +
+        "</ul>";
 }
+
+// Listen for changes in comment number selected and rerender comments section
+// as needed
+const selected = document.querySelector("#comment-number-shown");
+selected.addEventListener("change", (event) => {
+  switch (event.target.value) {
+    case "5":
+      displayServletContent(5);
+      break;
+    case "10":
+      displayServletContent(5);
+      break;
+    case "all":
+      displayServletContent(-1);
+      break;
+    case "none":
+      displayServletContent(0);
+      break;
+    default:
+      throw new Error("Unimplemented # comments encountered");
+  }
+});
