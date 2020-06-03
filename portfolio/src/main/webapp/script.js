@@ -92,7 +92,7 @@ async function displayServletContent(numCommentsToShow) {
   const res =
     numCommentsToShow === -1
       ? await fetch("/data")
-      : await fetch(`/data?list=${numCommentsToShow}`);
+      : await fetch(`/data?limit=${numCommentsToShow}`);
   const json = await res.json();
   if (!Array.isArray(json)) {
     throw new Error("Response data is not an array");

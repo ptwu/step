@@ -45,7 +45,7 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String requestParam = request.getParameter("list");
+    String requestParam = request.getParameter("limit");
     Query query = new Query("comment").addSort(COMMENT_ENTITY_PROPERTY_TIMESTAMP, SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
