@@ -84,7 +84,8 @@ function typeWriterEffect(charIndex, currentFactIndex) {
 /**
  * Renders the plaintext as a result of calling the /data GET endpoint by
  * setting the `comments-container` div to the text with certain number of
- * comments list.
+ * comments list. Throws an error if the endpoint does not return a JSON
+ * array.
  * @param {number} numCommentsToShow. If === -1, then show all comments.
  */
 async function displayServletContent(numCommentsToShow) {
@@ -108,7 +109,8 @@ async function displayServletContent(numCommentsToShow) {
 }
 
 // Listen for changes in comment number selected and rerender comments section
-// as needed
+// as needed. Throws an error if cases for 5, 10, all, or none are not
+// encountered.
 const selected = document.querySelector("#comment-number-shown");
 selected.addEventListener("change", (event) => {
   switch (event.target.value) {
@@ -116,7 +118,7 @@ selected.addEventListener("change", (event) => {
       displayServletContent(5);
       break;
     case "10":
-      displayServletContent(5);
+      displayServletContent(10);
       break;
     case "all":
       displayServletContent(-1);
