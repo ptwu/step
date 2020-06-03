@@ -65,6 +65,13 @@ body {
   background: whitesmoke;
   min-height: 30vh;
   text-align: center;
+  padding-bottom: 2em;
+}
+
+.comments-field {
+  display: block;
+  font: 1.5em var(--defaultFont);
+  margin: auto;
 }
 
 .comments-header {
@@ -84,10 +91,8 @@ body {
   padding: 0;
 }
 
-.comments-field {
-  display: block;
-  font: 1.5em var(--defaultFont);
-  margin: auto;
+.comments-menu {
+  margin-bottom: 1.5em;
 }
 
 .comments-submit {
@@ -99,7 +104,7 @@ body {
   display: block;
   font: 1.3em var(--boldFont);
   line-height: 50px;
-  margin: 24px auto 0 auto;
+  margin: 24px auto 24px auto;
   padding: 0 2em 0 2em;
 }
 

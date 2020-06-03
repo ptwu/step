@@ -159,6 +159,19 @@
     </div>
     <div class="comments-container">
       <h2 class="comments-header">Comments</h2>
+      <label for="comment-number-shown">
+        Show
+      </label>
+      <select
+        name="comment-number-shown"
+        id="comment-number-shown"
+        class="comments-menu"
+      >
+        <option value="5" selected>5 comments</option>
+        <option value="10">10 comments</option>
+        <option value="all">All comments</option>
+        <option value="none">No comments</option>
+      </select>
       <div id="comments-section"></div>
       <hr />
       <form action="/data" method="POST">

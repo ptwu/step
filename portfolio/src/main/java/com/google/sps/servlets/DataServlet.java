@@ -22,6 +22,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
+import com.google.common.collect.Iterables;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,13 +45,19 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String requestParam = request.getParameter("limit");
     Query query = new Query("comment").addSort(COMMENT_ENTITY_PROPERTY_TIMESTAMP, SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
     List<Comment> comments = new ArrayList<>();
+    Iterable<Entity> entityIterable = results.asIterable();
+    if (requestParam != null) {
+      int numCommentsToReturn = Integer.parseInt(requestParam);
+      entityIterable = Iterables.limit(entityIterable, numCommentsToReturn);
+    }
 
-    for (Entity entity : results.asIterable()) {
+    for (Entity entity : entityIterable) {
       String name = (String) entity.getProperty(COMMENT_ENTITY_PROPERTY_NAME);
       String text = (String) entity.getProperty(COMMENT_ENTITY_PROPERTY_TEXT);
       long timestamp = (long) entity.getProperty(COMMENT_ENTITY_PROPERTY_TIMESTAMP);
