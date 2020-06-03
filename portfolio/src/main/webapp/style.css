@@ -68,6 +68,23 @@ body {
   padding-bottom: 2em;
 }
 
+.comments-delete {
+  background: #d40202;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  display: block;
+  font: 1em var(--boldFont);
+  line-height: 30px;
+  margin: 0 auto 0 auto;
+  padding: 0 2em 0 2em;
+}
+
+.comments-delete:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+
 .comments-field {
   display: block;
   font: 1.5em var(--defaultFont);

@@ -130,3 +130,9 @@ selected.addEventListener("change", (event) => {
       throw new Error("Unimplemented # comments encountered");
   }
 });
+
+function deleteComments() {
+  fetch("/delete-data", { method: "POST" }).then(() =>
+    displayServletContent(-1)
+  );
+}
