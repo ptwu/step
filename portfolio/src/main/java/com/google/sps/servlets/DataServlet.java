@@ -44,12 +44,14 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String requestParam = request.getParameter("list");
     Query query = new Query("comment").addSort(COMMENT_ENTITY_PROPERTY_TIMESTAMP, SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
     List<Comment> comments = new ArrayList<>();
-
+    
+    if (requestParam == null) {
     for (Entity entity : results.asIterable()) {
       String name = (String) entity.getProperty(COMMENT_ENTITY_PROPERTY_NAME);
       String text = (String) entity.getProperty(COMMENT_ENTITY_PROPERTY_TEXT);
@@ -57,6 +59,10 @@ public class DataServlet extends HttpServlet {
 
       Comment comment = Comment.create(name, text, timestamp);
       comments.add(comment);
+    }
+    } else {
+        int numCommentsToReturn = Integer.parseInt(requestParam);
+        comments.add(Comment.create("dummy", numCommentsToReturn, 3434))
     }
 
     response.setContentType("application/json;");
