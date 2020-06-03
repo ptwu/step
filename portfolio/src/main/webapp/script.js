@@ -98,14 +98,19 @@ async function displayServletContent(numCommentsToShow) {
     throw new Error("Response data is not an array");
   }
 
-  document.getElementById("comments-section").innerHTML =
-    json.length === 0
-      ? "<h5>No comments to show.</h5>"
-      : '<ul class="comments-list">' +
-        json
-          .map(({ name, text, _ }) => `<li><b>${name}: </b>${text}</li>`)
-          .join("") +
-        "</ul>";
+  if (json.length === 0) {
+    document.getElementById("comments-section").innerHTML =
+      "<h5>No comments to show.</h5>";
+    document.getElementById("comment-delete-button").style.display = "none";
+  } else {
+    document.getElementById("comments-section").innerHTML =
+      '<ul class="comments-list">' +
+      json
+        .map(({ name, text, _ }) => `<li><b>${name}: </b>${text}</li>`)
+        .join("") +
+      "</ul>";
+    document.getElementById("comment-delete-button").style.display = "block";
+  }
 }
 
 // Listen for changes in comment number selected and rerender comments section
