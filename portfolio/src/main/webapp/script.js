@@ -109,7 +109,7 @@ async function displayServletContent(numCommentsToShow) {
             <div class="comments-card">
               <div class="comments-card-header">
                 <img
-                  src="assets/images/account_circle-24px.svg"
+                  src="/assets/images/account_circle-24px.svg"
                   alt="Icon of comment user"
                   class="comments-icon"
                 />
