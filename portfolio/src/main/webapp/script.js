@@ -144,18 +144,22 @@ selected.addEventListener("change", (event) => {
   displayServletContentUsingString(event.target.value);
 });
 
+// Prevent comment form submit button from automatically refreshing upon click
+const formElement = document.getElementById("comments-form");
+formElement.addEventListener("submit", (event) => {
+  event.preventDefault();
+});
+
 function addComment() {
   const username = document.getElementById("comment-username").value;
   const text = document.getElementById("comment-input").value;
-  console.log(`/data?username=${username}&text=${text}`);
   fetch(`/data?username=${username}&text=${text}`, { method: "POST" })
     .then(() => {
-      const currentLimit = document.getElementById("comment-number-shown").value;
-      console.log(currentLimit);
-      displayServletContentUsingString(currentLimit);
+      const limit = document.getElementById("comment-number-shown").value;
+      displayServletContentUsingString(limit);
     })
     .catch((error) => {
-      console.error('Error:', error);
+      console.error("Error:", error);
     });
 }
 
