@@ -150,21 +150,27 @@ formElement.addEventListener("submit", (event) => {
   event.preventDefault();
 });
 
+/**
+ * POST request to the /data endpoint with query params for username and text
+ * corresponding to the form fields; alerts if response code is not 2xx
+ */
 function addComment() {
   const username = document.getElementById("comment-username").value;
   const text = document.getElementById("comment-input").value;
   fetch(`/data?username=${username}&text=${text}`, { method: "POST" })
-    .then(() => {
-      const limit = document.getElementById("comment-number-shown").value;
-      displayServletContentUsingString(limit);
+    .then((res) => {
+      if(res.ok) {
+        const limit = document.getElementById("comment-number-shown").value;
+        displayServletContentUsingString(limit);
+        document.getElementById("comment-username").value = "";
+        document.getElementById("comment-input").value = "";
+      } else {
+        alert("Error: Enter a valid comment.");
+      }
     })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
 }
 
-function deleteComments() {
-  fetch("/delete-data", { method: "POST" }).then(() =>
-    displayServletContent(-1)
-  );
+async function deleteComments() {
+  await fetch("/delete-data", { method: "POST" });
+  displayServletContent(0);
 }
