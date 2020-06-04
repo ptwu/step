@@ -113,12 +113,12 @@ async function displayServletContent(numCommentsToShow) {
   }
 }
 
-// Listen for changes in comment number selected and rerender comments section
-// as needed. Throws an error if cases for 5, 10, all, or none are not
-// encountered.
-const selected = document.querySelector("#comment-number-shown");
-selected.addEventListener("change", (event) => {
-  switch (event.target.value) {
+/**
+ * Displays servlet comments at a limit determined by the parameter string.
+ * @param {string} value - the option of the select dropdown for comment limit numbers.
+ */
+function displayServletContentUsingString(value) {
+  switch (value) {
     case "5":
       displayServletContent(5);
       break;
@@ -134,10 +134,43 @@ selected.addEventListener("change", (event) => {
     default:
       throw new Error("Unimplemented # comments encountered");
   }
+}
+
+// Listen for changes in comment number selected and rerender comments section
+// as needed. Throws an error if cases for 5, 10, all, or none are not
+// encountered.
+const selected = document.querySelector("#comment-number-shown");
+selected.addEventListener("change", (event) => {
+  displayServletContentUsingString(event.target.value);
 });
 
-function deleteComments() {
-  fetch("/delete-data", { method: "POST" }).then(() =>
-    displayServletContent(-1)
-  );
+// Prevent comment form submit button from automatically refreshing upon click
+const formElement = document.getElementById("comments-form");
+formElement.addEventListener("submit", (event) => {
+  event.preventDefault();
+});
+
+/**
+ * POST request to the /data endpoint with query params for username and text
+ * corresponding to the form fields; alerts if response code is not 2xx
+ */
+function addComment() {
+  const username = document.getElementById("comment-username").value;
+  const text = document.getElementById("comment-input").value;
+  fetch(`/data?username=${username}&text=${text}`, { method: "POST" })
+    .then((res) => {
+      if(res.ok) {
+        const limit = document.getElementById("comment-number-shown").value;
+        displayServletContentUsingString(limit);
+        document.getElementById("comment-username").value = "";
+        document.getElementById("comment-input").value = "";
+      } else {
+        alert("Error: Enter a valid comment.");
+      }
+    })
+}
+
+async function deleteComments() {
+  await fetch("/delete-data", { method: "POST" });
+  displayServletContent(0);
 }
