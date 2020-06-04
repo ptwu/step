@@ -43,7 +43,7 @@ body {
 
 .card-text {
   line-height: 150%;
-  margin: 1.5em 0.5em 0 0.8em;
+  margin: 1em 0.5em 0 0.8em;
   padding-bottom: 10px;
   text-align: left;
 }
@@ -73,7 +73,8 @@ body {
 }
 
 .comments-card-header {
-  margin-top: 16px;
+  margin: 1em 0 0 0.5em;
+  text-align: left;
 }
 
 .comments-card-user {
