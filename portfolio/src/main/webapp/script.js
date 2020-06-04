@@ -103,12 +103,23 @@ async function displayServletContent(numCommentsToShow) {
       "<h5>No comments to show.</h5>";
     document.getElementById("comment-delete-button").style.display = "none";
   } else {
-    document.getElementById("comments-section").innerHTML =
-      '<ul class="comments-list">' +
-      json
-        .map(({ name, text, _ }) => `<li><b>${name}: </b>${text}</li>`)
-        .join("") +
-      "</ul>";
+    document.getElementById("comments-section").innerHTML = json
+      .map(
+        ({ name, text, _ }) => `
+            <div class="comments-card">
+              <div class="comments-card-header">
+                <img
+                  src="assets/images/account_circle-24px.svg"
+                  alt="Icon of comment user"
+                  class="comments-icon"
+                />
+                <span class="comments-card-user">${name}</span>
+              </div>
+              <p class="card-text">${text}</p>
+            </div>
+          `
+      )
+      .join("");
     document.getElementById("comment-delete-button").style.display = "block";
   }
 }
@@ -157,9 +168,9 @@ formElement.addEventListener("submit", (event) => {
 function addComment() {
   const username = document.getElementById("comment-username").value;
   const text = document.getElementById("comment-input").value;
-  fetch(`/data?username=${username}&text=${text}`, { method: "POST" })
-    .then((res) => {
-      if(res.ok) {
+  fetch(`/data?username=${username}&text=${text}`, { method: "POST" }).then(
+    (res) => {
+      if (res.ok) {
         const limit = document.getElementById("comment-number-shown").value;
         displayServletContentUsingString(limit);
         document.getElementById("comment-username").value = "";
@@ -167,7 +178,8 @@ function addComment() {
       } else {
         alert("Error: Enter a valid comment.");
       }
-    })
+    }
+  );
 }
 
 async function deleteComments() {

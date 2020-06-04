@@ -61,6 +61,25 @@ body {
   padding: 0.5em 0.5em 0.5em 0.5em;
 }
 
+.comments-card {
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 5px 5px rgba(0, 0, 0, 0.2);
+  margin: 1em auto 1em auto;
+  width: 400px;
+  max-width: 30%;
+  overflow: hidden;
+  position: relative;
+}
+
+.comments-card-header {
+  margin-top: 16px;
+}
+
+.comments-card-user {
+  font: 20px var(--boldFont);
+}
+
 .comments-container {
   background: whitesmoke;
   min-height: 30vh;
@@ -76,7 +95,7 @@ body {
   display: block;
   font: 1em var(--boldFont);
   line-height: 30px;
-  margin: 0 auto 0 auto;
+  margin: 0 auto 2em auto;
   padding: 0 2em 0 2em;
 }
 
@@ -97,6 +116,11 @@ body {
   padding-top: 1em;
 }
 
+.comments-icon {
+  vertical-align: middle;
+  display: inline-block;
+}
+
 .comments-label {
   display: block;
   font: 1.1em var(--boldFont);
@@ -110,6 +134,10 @@ body {
 
 .comments-menu {
   margin-bottom: 1.5em;
+}
+
+.comments-section {
+  margin-bottom: 2em;
 }
 
 .comments-submit {
