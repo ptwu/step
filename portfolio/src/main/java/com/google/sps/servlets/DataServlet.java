@@ -75,8 +75,8 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String username = request.getParameter("comment-username");
-    String commentText = request.getParameter("comment-input");
+    String username = request.getParameter("username");
+    String commentText = request.getParameter("text");
     String sanitizedCommentText = HtmlEscapers.htmlEscaper().escape(commentText);
     long timestamp = System.currentTimeMillis();
 
@@ -87,7 +87,6 @@ public class DataServlet extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
-    response.sendRedirect("/");
   }
 
   /**

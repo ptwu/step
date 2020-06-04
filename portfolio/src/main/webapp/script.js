@@ -113,12 +113,12 @@ async function displayServletContent(numCommentsToShow) {
   }
 }
 
-// Listen for changes in comment number selected and rerender comments section
-// as needed. Throws an error if cases for 5, 10, all, or none are not
-// encountered.
-const selected = document.querySelector("#comment-number-shown");
-selected.addEventListener("change", (event) => {
-  switch (event.target.value) {
+/**
+ * Displays servlet comments at a limit determined by the parameter string.
+ * @param {string} value - the option of the select dropdown for comment limit numbers.
+ */
+function displayServletContentUsingString(value) {
+  switch (value) {
     case "5":
       displayServletContent(5);
       break;
@@ -134,7 +134,30 @@ selected.addEventListener("change", (event) => {
     default:
       throw new Error("Unimplemented # comments encountered");
   }
+}
+
+// Listen for changes in comment number selected and rerender comments section
+// as needed. Throws an error if cases for 5, 10, all, or none are not
+// encountered.
+const selected = document.querySelector("#comment-number-shown");
+selected.addEventListener("change", (event) => {
+  displayServletContentUsingString(event.target.value);
 });
+
+function addComment() {
+  const username = document.getElementById("comment-username").value;
+  const text = document.getElementById("comment-input").value;
+  console.log(`/data?username=${username}&text=${text}`);
+  fetch(`/data?username=${username}&text=${text}`, { method: "POST" })
+    .then(() => {
+      const currentLimit = document.getElementById("comment-number-shown").value;
+      console.log(currentLimit);
+      displayServletContentUsingString(currentLimit);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
 
 function deleteComments() {
   fetch("/delete-data", { method: "POST" }).then(() =>

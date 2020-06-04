@@ -181,7 +181,7 @@
       </button>
       <div id="comments-section"></div>
       <hr />
-      <form action="/data" method="POST">
+      <form>
         <h3>Add a Comment</h3>
         <label for="comment-username" class="comments-label">Your Name:</label>
         <input
@@ -196,12 +196,15 @@
           >Your Comment:
         </label>
         <textarea
+          id="comment-input"
           name="comment-input"
           placeholder="Enter your comment here..."
           class="comments-area"
           required
         ></textarea>
-        <input type="submit" class="comments-submit" />
+        <input type="submit" onClick="addComment()" class="comments-submit">
+          Submit
+        </button>
       </form>
     </div>
     <footer class="footer-white">
