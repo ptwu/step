@@ -172,6 +172,13 @@
         <option value="all">All comments</option>
         <option value="none">No comments</option>
       </select>
+      <button 
+        id="comment-delete-button" 
+        onClick="deleteComments()" 
+        class="comments-delete"
+      >
+        Delete All Comments
+      </button>
       <div id="comments-section"></div>
       <hr />
       <form action="/data" method="POST">
