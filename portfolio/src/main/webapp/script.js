@@ -81,6 +81,27 @@ function typeWriterEffect(charIndex, currentFactIndex) {
   }
 }
 
+function sortCommentArr(commentObjArray) {
+  const currentSortOption = document.getElementById("comment-sort-menu").value;
+  switch (currentSortOption) {
+    case "descending-time":
+      commentObjArray.sort((a, b) => b.timestamp - a.timestamp);
+      break;
+    case "ascending-time":
+      commentObjArray.sort((a, b) => a.timestamp - b.timestamp);
+      break;
+    case "descending-len":
+      commentObjArray.sort((a, b) => b.text.length() - a.text.length());
+      break;
+    case "ascending-len":
+      commentObjArray.sort((a, b) => a.text.length() - b.text.length());
+      break;
+    case "scramble":
+      commentObjArray.sort(() => Math.random() - 0.5);
+      break;
+  }
+}
+
 /**
  * Renders the plaintext as a result of calling the /data GET endpoint by
  * setting the `comments-container` div to the text with certain number of
@@ -103,7 +124,7 @@ async function displayServletContent(numCommentsToShow) {
       "<h5>No comments to show.</h5>";
     document.getElementById("comment-delete-button").style.display = "none";
   } else {
-    document.getElementById("comments-section").innerHTML = json
+    document.getElementById("comments-section").innerHTML = sortCommentArr(json)
       .map(
         ({ name, text, timestamp }) => `
             <div class="comments-card">
@@ -113,7 +134,9 @@ async function displayServletContent(numCommentsToShow) {
                   alt="Icon of comment user"
                   class="comments-icon"
                 />
-                <span class="comments-card-user">${name} · ${new Date(timestamp).toLocaleDateString()}</span>
+                <span class="comments-card-user">
+                  ${name} · ${new Date(timestamp).toLocaleDateString()}
+                </span>
               </div>
               <p class="card-text">${text}</p>
             </div>
@@ -153,6 +176,12 @@ function displayServletContentUsingString(value) {
 const selected = document.querySelector("#comment-number-shown");
 selected.addEventListener("change", (event) => {
   displayServletContentUsingString(event.target.value);
+});
+
+// Listen for changes in sort method and rerender comments as needed.
+const selected = document.querySelector("#comment-sort-menu");
+selected.addEventListener("change", (event) => {
+  displayServletContent();
 });
 
 // Prevent comment form submit button from automatically refreshing upon click

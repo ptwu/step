@@ -172,6 +172,20 @@
         <option value="all">All comments</option>
         <option value="none">No comments</option>
       </select>
+      <label for="comment-number-shown">
+        Sort by
+      </label>
+      <select
+        name="comment-sort-menu"
+        id="comment-sort-menu"
+        class="comments-menu"
+      >
+        <option value="descending-time" selected>Newest to oldest</option>
+        <option value="ascending-time">Oldest to newest</option>
+        <option value="descending-len">Longest to shortest</option>
+        <option value="ascending-len">Shortest to longest</option>
+        <option value="scramble">Scramble</option>
+      </select>
       <button
         id="comment-delete-button"
         onClick="deleteComments()"
