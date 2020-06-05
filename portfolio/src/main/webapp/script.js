@@ -97,10 +97,10 @@ function sortCommentArr(commentObjArray) {
       commentObjArray.sort((a, b) => a.timestamp - b.timestamp);
       break;
     case "descending-len":
-      commentObjArray.sort((a, b) => b.text.length() - a.text.length());
+      commentObjArray.sort((a, b) => b.text.length - a.text.length);
       break;
     case "ascending-len":
-      commentObjArray.sort((a, b) => a.text.length() - b.text.length());
+      commentObjArray.sort((a, b) => a.text.length - b.text.length);
       break;
     case "scramble":
       commentObjArray.sort(() => Math.random() - 0.5);
@@ -130,7 +130,8 @@ async function displayServletContent(numCommentsToShow) {
       "<h5>No comments to show.</h5>";
     document.getElementById("comment-delete-button").style.display = "none";
   } else {
-    document.getElementById("comments-section").innerHTML = sortCommentArr(json)
+    sortCommentArr(json);
+    document.getElementById("comments-section").innerHTML = json
       .map(
         ({ name, text, timestamp }) => `
             <div class="comments-card">
@@ -176,6 +177,11 @@ function displayServletContentUsingString(value) {
   }
 }
 
+function rerenderCommentsWithCurrentLimit() {
+  const limit = document.getElementById("comment-number-shown").value;
+  displayServletContentUsingString(limit);
+}
+
 // Listen for changes in comment number selected and rerender comments section
 // as needed. Throws an error if cases for 5, 10, all, or none are not
 // encountered.
@@ -187,7 +193,7 @@ selected.addEventListener("change", (event) => {
 // Listen for changes in sort method and rerender comments as needed.
 const sortMenuElement = document.querySelector("#comment-sort-menu");
 sortMenuElement.addEventListener("change", (event) => {
-  displayServletContent();
+  rerenderCommentsWithCurrentLimit();
 });
 
 // Prevent comment form submit button from automatically refreshing upon click
@@ -206,8 +212,7 @@ function addComment() {
   fetch(`/data?username=${username}&text=${text}`, { method: "POST" }).then(
     (res) => {
       if (res.ok) {
-        const limit = document.getElementById("comment-number-shown").value;
-        displayServletContentUsingString(limit);
+        rerenderCommentsWithCurrentLimit();
         document.getElementById("comment-username").value = "";
         document.getElementById("comment-input").value = "";
       } else {
