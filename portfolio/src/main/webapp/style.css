@@ -8,7 +8,7 @@ body {
 }
 
 .card {
-  background-color: #ffffff;
+  background-color: white;
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 5px 5px rgba(0, 0, 0, 0.2);
   margin: 8px;
@@ -62,7 +62,7 @@ body {
 }
 
 .comments-card {
-  background-color: #ffffff;
+  background-color: white;
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 5px 5px rgba(0, 0, 0, 0.2);
   margin: 1em auto 1em auto;
@@ -137,7 +137,7 @@ body {
   margin-bottom: 1.5em;
 }
 
-.comments-section {
+#comments-section {
   margin-bottom: 2em;
 }
 
