@@ -134,7 +134,7 @@ body {
 }
 
 .comments-menu {
-  margin-bottom: 1.5em;
+  margin: auto 1.5em 1.5em auto;
 }
 
 #comments-section {

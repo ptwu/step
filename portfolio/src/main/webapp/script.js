@@ -82,6 +82,33 @@ function typeWriterEffect(charIndex, currentFactIndex) {
 }
 
 /**
+ * Sorts the comment array according to the current value of the select
+ * dropdown menu
+ * @param {Array} commentObjArray contains objects with username, text, 
+ * and timestamp fields
+ */
+function sortCommentArr(commentObjArray) {
+  const currentSortOption = document.getElementById("comment-sort-menu").value;
+  switch (currentSortOption) {
+    case "descending-time":
+      commentObjArray.sort((a, b) => b.timestamp - a.timestamp);
+      break;
+    case "ascending-time":
+      commentObjArray.sort((a, b) => a.timestamp - b.timestamp);
+      break;
+    case "descending-len":
+      commentObjArray.sort((a, b) => b.text.length - a.text.length);
+      break;
+    case "ascending-len":
+      commentObjArray.sort((a, b) => a.text.length - b.text.length);
+      break;
+    case "scramble":
+      commentObjArray.sort(() => Math.random() - 0.5);
+      break;
+  }
+}
+
+/**
  * Renders the plaintext as a result of calling the /data GET endpoint by
  * setting the `comments-container` div to the text with certain number of
  * comments list. Throws an error if the endpoint does not return a JSON
@@ -103,9 +130,10 @@ async function displayServletContent(numCommentsToShow) {
       "<h5>No comments to show.</h5>";
     document.getElementById("comment-delete-button").style.display = "none";
   } else {
+    sortCommentArr(json);
     document.getElementById("comments-section").innerHTML = json
       .map(
-        ({ name, text, _ }) => `
+        ({ name, text, timestamp }) => `
             <div class="comments-card">
               <div class="comments-card-header">
                 <img
@@ -113,7 +141,9 @@ async function displayServletContent(numCommentsToShow) {
                   alt="Icon of comment user"
                   class="comments-icon"
                 />
-                <span class="comments-card-user">${name}</span>
+                <span class="comments-card-user">
+                  ${name} · ${new Date(timestamp).toLocaleDateString()}
+                </span>
               </div>
               <p class="card-text">${text}</p>
             </div>
@@ -147,12 +177,23 @@ function displayServletContentUsingString(value) {
   }
 }
 
+function rerenderCommentsWithCurrentLimit() {
+  const limit = document.getElementById("comment-number-shown").value;
+  displayServletContentUsingString(limit);
+}
+
 // Listen for changes in comment number selected and rerender comments section
 // as needed. Throws an error if cases for 5, 10, all, or none are not
 // encountered.
 const selected = document.querySelector("#comment-number-shown");
 selected.addEventListener("change", (event) => {
   displayServletContentUsingString(event.target.value);
+});
+
+// Listen for changes in sort method and rerender comments as needed.
+const sortMenuElement = document.querySelector("#comment-sort-menu");
+sortMenuElement.addEventListener("change", (event) => {
+  rerenderCommentsWithCurrentLimit();
 });
 
 // Prevent comment form submit button from automatically refreshing upon click
@@ -171,8 +212,7 @@ function addComment() {
   fetch(`/data?username=${username}&text=${text}`, { method: "POST" }).then(
     (res) => {
       if (res.ok) {
-        const limit = document.getElementById("comment-number-shown").value;
-        displayServletContentUsingString(limit);
+        rerenderCommentsWithCurrentLimit();
         document.getElementById("comment-username").value = "";
         document.getElementById("comment-input").value = "";
       } else {
