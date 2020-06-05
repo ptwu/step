@@ -81,6 +81,12 @@ function typeWriterEffect(charIndex, currentFactIndex) {
   }
 }
 
+/**
+ * Sorts the comment array according to the current value of the select
+ * dropdown menu
+ * @param {Array} commentObjArray contains objects with username, text, 
+ * and timestamp fields
+ */
 function sortCommentArr(commentObjArray) {
   const currentSortOption = document.getElementById("comment-sort-menu").value;
   switch (currentSortOption) {
@@ -179,8 +185,8 @@ selected.addEventListener("change", (event) => {
 });
 
 // Listen for changes in sort method and rerender comments as needed.
-const selected = document.querySelector("#comment-sort-menu");
-selected.addEventListener("change", (event) => {
+const sortMenuElement = document.querySelector("#comment-sort-menu");
+sortMenuElement.addEventListener("change", (event) => {
   displayServletContent();
 });
 
