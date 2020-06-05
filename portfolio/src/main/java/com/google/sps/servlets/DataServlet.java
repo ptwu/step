@@ -84,7 +84,7 @@ public class DataServlet extends HttpServlet {
     if (sanitizedCommentText.trim().length() == 0 || username.trim().length() == 0) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return;
-    }
+    } 
 
     Entity commentEntity = new Entity("comment");
     commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_NAME, username);
