@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>My Portfolio | Peter Wu</title>
@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <script async src="script.js"></script>
+    <script async defer src="script.js"></script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNzSV2oZJ6L1faY_mnZUZp2DA9JQTQ6kU"
+    ></script>
   </head>
   <body onload="init()">
     <div class="navbar-wrap">
@@ -20,8 +25,8 @@
         <h1 class="name-header">Peter Wu</h1>
         <h2 class="subtitle">
           &lt;Full Stack Developer /&gt; and CS Student
-          <div id="blinking-text">_</div>
         </h2>
+        <h2 class="subtitle" id="blinking-text">_</h2>
         <p id="tw-text" class="desc-text"></p>
 
         <div class="links-container">
@@ -156,6 +161,10 @@
           </a>
         </div>
       </div>
+    </div>
+    <div class="maps-container">
+      <h2 class="maps-header">Cool Places</h2>
+      <div id="map"></div>
     </div>
     <div class="comments-container">
       <h2 class="comments-header">Comments</h2>

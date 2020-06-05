@@ -4,7 +4,7 @@ body {
 }
 
 #blinking-text {
-  float: right;
+  clear: right;
 }
 
 .card {
@@ -236,6 +236,24 @@ body {
 
 #logo-button:hover {
   filter: brightness(120%);
+}
+
+#map {
+  width: 70%;
+  margin: auto;
+  min-height: 30vh;
+}
+
+.maps-container {
+  background: #454545;
+  color: white;
+  min-height: 50vh;
+  text-align: center;
+}
+
+.maps-header {
+  margin-top: 0;
+  padding: 1em 0 1em 0;
 }
 
 .name-header {

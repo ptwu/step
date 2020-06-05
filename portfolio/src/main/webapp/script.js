@@ -19,6 +19,7 @@ let alternateOnOff = false;
 function init() {
   typeWriterEffect(0, 0);
   displayServletContent(5);
+  initializeMap();
 }
 
 // Interval for repeated blinking text effect on page
@@ -225,4 +226,12 @@ function addComment() {
 async function deleteComments() {
   await fetch("/delete-data", { method: "POST" });
   displayServletContent(0);
+}
+
+/* Creates a map and adds it to the page */
+function initializeMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map'),
+      {center: {lat: 42.453, lng: -76.474}, zoom: 16}
+  );
 }
