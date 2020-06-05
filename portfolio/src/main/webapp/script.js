@@ -105,7 +105,7 @@ async function displayServletContent(numCommentsToShow) {
   } else {
     document.getElementById("comments-section").innerHTML = json
       .map(
-        ({ name, text, _ }) => `
+        ({ name, text, timestamp }) => `
             <div class="comments-card">
               <div class="comments-card-header">
                 <img
@@ -113,7 +113,7 @@ async function displayServletContent(numCommentsToShow) {
                   alt="Icon of comment user"
                   class="comments-icon"
                 />
-                <span class="comments-card-user">${name}</span>
+                <span class="comments-card-user">${name} · ${new Date(timestamp).toLocaleDateString()}</span>
               </div>
               <p class="card-text">${text}</p>
             </div>
