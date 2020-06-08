@@ -235,31 +235,58 @@ const markers = [
     lat: 42.455,
     lng: -76.4777,
     title: "Mary Donlon Hall: My Dorm",
+    content: `I lived in Donlon Hall during my freshman year. It was a good time,
+    since it is considered the "social" dorm.`,
+    image: "donlon.jpg",
   },
   {
     lat: 42.4486,
     lng: -76.4863,
     title: "The Slope",
+    content: `Libe Slope ("The Slope") is one of the best views at Cornell. It
+    faces west, so you can see a nice view of the sunset, but it is still pretty
+    annoying to walk up every day, so I try my best to avoid it.`,
+    image: "libe.jpg",
   },
   {
     lat: 42.4498,
     lng: -76.4816,
     title: "PSB: Best Natural Light",
+    content: `The Physical Sciences Building (PSB) is the home of physics majors
+    at Cornell, but is a popular study spot among engineers. Contains a nice cafe
+    called Goldie's and very nice natural light that keeps you from falling 
+    asleep.`,
+    image: "psb.jpg",
   },
   {
     lat: 42.4479,
     lng: -76.4793,
     title: "Trillium: Best Food Spot",
+    content: `Trillium is easily the best place to get lunch on campus. It has
+    many options for food, but does not take meal swipes: it is an eatery rather
+    than a dining hall, so you can either use credit card or Big Red Bucks (Cornell's
+    version of dining dollars which are untaxed)`,
+    image: "trillium.jpg",
   },
   {
     lat: 42.445,
     lng: -76.4812,
     title: "Gates Hall: Home of CS",
+    content: `The Bill & Melinda Gates Hall is the home of CIS, or Computing and
+    Information Science. Some upper-level CS courses are taught here, and this
+    is where all the PhDs and professors have their offices. A pretty futuristic
+    building, it was built in 2014.`,
+    image: "gates.jpg",
   },
   {
     lat: 42.4529,
     lng: -76.4774,
     title: "Helen Newman: Where I Play Badminton",
+    content: `Helen Newman Hall is a fitness center with gyms and other fitness
+    equipment (volleyball and badminton nets). The badminton team practices here
+    every Tuesday, Thursday, and Saturday (though I miss a lot of the practices
+    due to work/studies).`,
+    image: "helennewman.jpg",
   },
 ];
 
