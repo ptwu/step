@@ -35,7 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet that returns some example content of comments on the portfolio.
+ * Servlet that allows for creation and viewing (with a certain limit) of
+ * existing comments in the Datastore
  */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
@@ -77,17 +78,18 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String username = request.getParameter("username");
     String commentText = request.getParameter("text");
+    String sanitizedUsername = HtmlEscapers.htmlEscaper().escape(username);
     String sanitizedCommentText = HtmlEscapers.htmlEscaper().escape(commentText);
     long timestamp = System.currentTimeMillis();
 
     // Send error code 400 if comment or username is whitespace or empty
-    if (sanitizedCommentText.trim().length() == 0 || username.trim().length() == 0) {
+    if (sanitizedCommentText.trim().length() == 0 || sanitizedUsername.trim().length() == 0) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return;
-    } 
+    }
 
     Entity commentEntity = new Entity("comment");
-    commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_NAME, username);
+    commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_NAME, sanitizedUsername);
     commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_TEXT, sanitizedCommentText);
     commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_TIMESTAMP, timestamp);
 
