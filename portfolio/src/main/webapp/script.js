@@ -295,12 +295,18 @@ const markers = [
  * @param {google.maps.Map} map - Map object for which the markers will be added
  */
 function initializeMarkers(map) {
-  markers.map(({ lat, lng, title }) => {
-    new google.maps.Marker({
+  markers.map(({ lat, lng, title, content, image }) => {
+    const marker = new google.maps.Marker({
       position: { lat: lat, lng: lng },
       map: map,
       title: title,
     });
+    const infoWindow = new google.maps.InfoWindow({
+      content: `<h1 class="infowindow-text">${title}</h1>
+      <img src="assets/images/${image}" class="infowindow-img" alt="${title}" />
+      <p class="infowindow-text">${content}</p>`,
+    });
+    marker.addListener("click", () => infoWindow.open(map, marker));
   });
 }
 
