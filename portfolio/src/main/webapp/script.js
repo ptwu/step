@@ -324,6 +324,8 @@ function renderMarkersToMap(markerArray, map) {
  */
 async function initializeMarkers(map) {
   renderMarkersToMap(DEFAULT_MARKERS, map);
+  const userCreatedMarkers = await fetch("/map-marker");
+  renderMarkersToMap(userCreatedMarkers, map);
 }
 
 /**
