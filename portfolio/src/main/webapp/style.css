@@ -209,6 +209,17 @@ body {
   width: 1.8em;
 }
 
+.infowindow-img {
+  max-height: 100%;
+  margin: auto;
+  object-fit: contain;
+  width: 50%;
+}
+
+.infowindow-text {
+  color: black;
+}
+
 .learn-more-button {
   background: var(--motifColor);
   border: none;
