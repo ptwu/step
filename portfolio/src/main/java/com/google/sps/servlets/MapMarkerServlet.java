@@ -7,7 +7,6 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.gson.Gson;
-import com.google.common.html.HtmlEscapers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,12 +63,10 @@ public class MapMarkerServlet extends HttpServlet {
 
     double latitude = Double.parseDouble(latitudeString);
     double longitude = Double.parseDouble(longitudeString);
-    String sanitizedTitle = HtmlEscapers.htmlEscaper().escape(title);
-    String sanitizedContent = HtmlEscapers.htmlEscaper().escape(content);
 
     // Send error code 400 if any text input is whitespace or empty
-    if (latitudeString.trim().length() == 0 || longitudeString.trim().length() == 0
-        || sanitizedTitle.trim().length() == 0 || sanitizedContent.trim().length() == 0) {
+    if (latitudeString.trim().length() == 0 || longitudeString.trim().length() == 0 || title.trim().length() == 0
+        || content.trim().length() == 0) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return;
     }
@@ -77,8 +74,8 @@ public class MapMarkerServlet extends HttpServlet {
     Entity markerEntity = new Entity("marker");
     markerEntity.setProperty(MARKER_ENTITY_PROPERTY_LATITUDE, latitude);
     markerEntity.setProperty(MARKER_ENTITY_PROPERTY_LONGITUDE, longitude);
-    markerEntity.setProperty(MARKER_ENTITY_PROPERTY_TITLE, sanitizedTitle);
-    markerEntity.setProperty(MARKER_ENTITY_PROPERTY_CONTENT, sanitizedContent);
+    markerEntity.setProperty(MARKER_ENTITY_PROPERTY_TITLE, title);
+    markerEntity.setProperty(MARKER_ENTITY_PROPERTY_CONTENT, content);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(markerEntity);

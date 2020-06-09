@@ -23,7 +23,6 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 import com.google.common.collect.Iterables;
-import com.google.common.html.HtmlEscapers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,19 +77,17 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String username = request.getParameter("username");
     String commentText = request.getParameter("text");
-    String sanitizedUsername = HtmlEscapers.htmlEscaper().escape(username);
-    String sanitizedCommentText = HtmlEscapers.htmlEscaper().escape(commentText);
     long timestamp = System.currentTimeMillis();
 
     // Send error code 400 if comment or username is whitespace or empty
-    if (sanitizedCommentText.trim().length() == 0 || sanitizedUsername.trim().length() == 0) {
+    if (commentText.trim().length() == 0 || username.trim().length() == 0) {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
       return;
     }
 
     Entity commentEntity = new Entity("comment");
-    commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_NAME, sanitizedUsername);
-    commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_TEXT, sanitizedCommentText);
+    commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_NAME, username);
+    commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_TEXT, commentText);
     commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_TIMESTAMP, timestamp);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();

@@ -85,7 +85,7 @@ function typeWriterEffect(charIndex, currentFactIndex) {
 /**
  * Sorts the comment array according to the current value of the select
  * dropdown menu
- * @param {Array} commentObjArray contains objects with username, text, 
+ * @param {Array} commentObjArray contains objects with username, text,
  * and timestamp fields
  */
 function sortCommentArr(commentObjArray) {
@@ -132,7 +132,7 @@ async function displayServletContent(numCommentsToShow) {
     document.getElementById("comment-delete-button").style.display = "none";
   } else {
     sortCommentArr(json);
-    document.getElementById("comments-section").innerHTML = json
+    document.getElementById("comments-section").textContent = json
       .map(
         ({ name, text, timestamp }) => `
             <div class="comments-card">
@@ -230,8 +230,8 @@ async function deleteComments() {
 
 /* Creates a map and adds it to the page */
 function initializeMap() {
-  const map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: {lat: 42.453, lng: -76.474}, zoom: 16}
-  );
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 42.453, lng: -76.474 },
+    zoom: 16,
+  });
 }
