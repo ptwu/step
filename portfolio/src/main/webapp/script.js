@@ -85,7 +85,7 @@ function typeWriterEffect(charIndex, currentFactIndex) {
 /**
  * Sorts the comment array according to the current value of the select
  * dropdown menu
- * @param {Array} commentObjArray contains objects with username, text, 
+ * @param {Array} commentObjArray contains objects with username, text,
  * and timestamp fields
  */
 function sortCommentArr(commentObjArray) {
@@ -228,10 +228,63 @@ async function deleteComments() {
   displayServletContent(0);
 }
 
-/* Creates a map and adds it to the page */
+const CORNELL_COORDS = { lat: 42.449, lng: -76.474 };
+
+const DEFAULT_MARKERS = [
+  {
+    lat: 42.455,
+    lng: -76.4777,
+    title: "Mary Donlon Hall: My Dorm",
+  },
+  {
+    lat: 42.4486,
+    lng: -76.4863,
+    title: "The Slope",
+  },
+  {
+    lat: 42.4498,
+    lng: -76.4816,
+    title: "PSB: Best Natural Light",
+  },
+  {
+    lat: 42.4479,
+    lng: -76.4793,
+    title: "Trillium: Best Food Spot",
+  },
+  {
+    lat: 42.445,
+    lng: -76.4812,
+    title: "Gates Hall: Home of CS",
+  },
+  {
+    lat: 42.4529,
+    lng: -76.4774,
+    title: "Helen Newman: Where I Play Badminton",
+  },
+];
+
+/**
+ * Adds markers in the markers const array to a certain Google Map
+ * @param {google.maps.Map} map - Map object for which the markers will be added
+ */
+function initializeMarkers(map) {
+  DEFAULT_MARKERS.map(({ lat, lng, title }) => {
+    new google.maps.Marker({
+      position: { lat: lat, lng: lng },
+      map: map,
+      title: title,
+    });
+  });
+}
+
+/**
+ * Creates a map of Cornell University and adds it to the page
+ */
 function initializeMap() {
-  const map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: {lat: 42.453, lng: -76.474}, zoom: 16}
-  );
+  const { lat, lng } = CORNELL_COORDS;
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: lat, lng: lng },
+    zoom: 15,
+  });
+  initializeMarkers(map);
 }

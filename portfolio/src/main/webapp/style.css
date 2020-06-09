@@ -241,13 +241,13 @@ body {
 #map {
   width: 70%;
   margin: auto;
-  min-height: 30vh;
+  min-height: 55vh;
 }
 
 .maps-container {
   background: #454545;
   color: white;
-  min-height: 50vh;
+  min-height: 70vh;
   text-align: center;
 }
 
