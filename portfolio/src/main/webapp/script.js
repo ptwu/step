@@ -228,9 +228,9 @@ async function deleteComments() {
   displayServletContent(0);
 }
 
-const cornellCoords = { lat: 42.449, lng: -76.474 };
+const CORNELL_COORDS = { lat: 42.449, lng: -76.474 };
 
-const markers = [
+const DEFAULT_MARKERS = [
   {
     lat: 42.455,
     lng: -76.4777,
@@ -295,7 +295,7 @@ const markers = [
  * @param {google.maps.Map} map - Map object for which the markers will be added
  */
 function initializeMarkers(map) {
-  markers.map(({ lat, lng, title, content, image }) => {
+  DEFAULT_MARKERS.map(({ lat, lng, title, content, image }) => {
     const marker = new google.maps.Marker({
       position: { lat: lat, lng: lng },
       map: map,
@@ -314,7 +314,7 @@ function initializeMarkers(map) {
  * Creates a map of Cornell University and adds it to the page
  */
 function initializeMap() {
-  const { lat, lng } = cornellCoords;
+  const { lat, lng } = CORNELL_COORDS;
   const map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: lat, lng: lng },
     zoom: 15,
