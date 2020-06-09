@@ -132,9 +132,9 @@ async function displayServletContent(numCommentsToShow) {
     document.getElementById("comment-delete-button").style.display = "none";
   } else {
     sortCommentArr(json);
-    document.getElementById("comments-section").innerHTML = json
-      .map(
-        ({ name, text, timestamp }, index) => `
+    document.getElementById("comments-section").innerHTML = "";
+    json.map(({ name, text, timestamp }, index) => {
+      document.getElementById("comments-section").innerHTML += `
             <div class="comments-card">
               <div class="comments-card-header">
                 <img
@@ -147,10 +147,7 @@ async function displayServletContent(numCommentsToShow) {
               </div>
               <p class="card-text" id="${index}-text"></p>
             </div>
-          `
-      )
-      .join("");
-    json.map(({ name, text, timestamp }, index) => {
+          `;
       document.getElementById(
         `${index}-username`
       ).textContent = `${name} · ${new Date(timestamp).toLocaleDateString()}`;
