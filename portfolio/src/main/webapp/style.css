@@ -1,3 +1,9 @@
+#address-display {
+  line-height: 1.25;
+  margin-top: 0;
+  min-height: 1.25em;
+}
+
 body {
   font-family: var(--defaultFont);
   margin: 0;
@@ -17,11 +23,11 @@ button:hover {
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 5px 5px rgba(0, 0, 0, 0.2);
   margin: 8px;
-  width: 400px;
   max-width: 30%;
   overflow: hidden;
   position: relative;
   padding-bottom: 90px;
+  width: 400px;
 }
 
 .card-cta {
@@ -257,7 +263,7 @@ button:hover {
   color: white;
   font: 1em var(--boldFont);
   line-height: 30px;
-  margin: 0 auto 2em 1em;
+  margin: 0 auto 0 1em;
   padding: 0 2em 0 2em;
 }
 

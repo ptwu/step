@@ -171,10 +171,17 @@
         <label for="lat">Latitude:</label>
         <input type="number" id="lat" name="lat" class="maps-field" required />
         <label for="lng">Longitude:</label>
-        <input type="number" id="lng" name="lng" required />
-        <button onClick="getAddress()" class="maps-button" formnovalidate>
+        <input type="number" id="lng" name="lng" class="maps-field" required />
+        <button
+          id="check-address-button"
+          onClick="getAddress()"
+          class="maps-button"
+          href="#"
+          formnovalidate
+        >
           Check Address
         </button>
+        <div id="address-display"></div>
         <label for="marker-title" class="form-label">Title of Marker:</label>
         <input
           type="text"
