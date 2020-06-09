@@ -88,13 +88,13 @@ public class MapMarkerServlet extends HttpServlet {
    */
   @AutoValue
   abstract static class Marker {
-    static Marker create(double latitude, double longitude, String title, String content) {
-      return new AutoValue_MapMarkerServlet_Marker(latitude, longitude, title, content);
+    static Marker create(double lat, double lng, String title, String content) {
+      return new AutoValue_MapMarkerServlet_Marker(lat, lng, title, content);
     }
 
-    abstract double latitude();
+    abstract double lat();
 
-    abstract double longitude();
+    abstract double lng();
 
     abstract String title();
 

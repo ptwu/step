@@ -301,17 +301,27 @@ const DEFAULT_MARKERS = [
   },
 ];
 
+/**
+ * Renders all the markers in a certain array of marker objects to a certain 
+ * map.
+ * @param {Array} markerArray which must have keys lat, lng, title, content,
+ * and optionally, image. 
+ * @param {google.maps.Map} map
+ */
 function renderMarkersToMap(markerArray, map) {
-  markerArray.map(({ lat, lng, title, content, image }) => {
+  markerArray.map((obj) => {
     const marker = new google.maps.Marker({
-      position: { lat: lat, lng: lng },
+      position: { lat: obj.lat, lng: obj.lng },
       map: map,
-      title: title,
+      title: obj.title,
     });
     const infoWindow = new google.maps.InfoWindow({
-      content: `<h1 class="infowindow-text">${title}</h1>
-      <img src="assets/images/${image}" class="infowindow-img" alt="${title}" />
-      <p class="infowindow-text">${content}</p>`,
+      content:
+        `<h1 class="infowindow-text">${obj.title}</h1>` +
+        (!obj.hasOwnProperty("image")
+        ? ``
+        : `<img src="assets/images/${obj.image}" class="infowindow-img" alt="${obj.title}" />`) +
+        `<p class="infowindow-text">${obj.content}</p>`,
     });
     marker.addListener("click", () => infoWindow.open(map, marker));
   });
