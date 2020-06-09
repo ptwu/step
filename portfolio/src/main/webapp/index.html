@@ -165,9 +165,38 @@
     <div class="maps-container">
       <h2 class="maps-header">Cool Places at Cornell Tour</h2>
       <div id="map"></div>
+      <hr />
+      <form action="/map-marker" method="POST">
+        <h3 class="form-header">Add a Marker</h3>
+        <label for="lat">Latitude:</label>
+        <input type="number" id="lat" name="lat" class="maps-field" required />
+        <label for="lng">Longitude:</label>
+        <input type="number" id="lng" name="lng" required />
+        <button onClick="getAddress()" class="maps-button" formnovalidate>
+          Check Address
+        </button>
+        <label for="marker-title" class="form-label">Title of Marker:</label>
+        <input
+          type="text"
+          id="marker-title"
+          class="form-field"
+          name="marker-title"
+          required
+        />
+        <label for="marker-content" class="form-label">Description: </label>
+        <textarea
+          id="marker-content"
+          name="marker-content"
+          placeholder="Enter your description of the marker here..."
+          class="form-area"
+          required
+        ></textarea>
+        <input type="submit" class="maps-submit" />
+        <br />
+      </form>
     </div>
     <div class="comments-container">
-      <h2 class="comments-header">Comments</h2>
+      <h2 class="form-header">Comments</h2>
       <label for="comment-number-shown">
         Show
       </label>
@@ -206,23 +235,23 @@
       <hr />
       <form id="comments-form">
         <h3>Add a Comment</h3>
-        <label for="comment-username" class="comments-label">Your Name:</label>
+        <label for="comment-username" class="form-label">Your Name:</label>
         <input
           type="text"
           id="comment-username"
           placeholder="John Doe"
           name="comment-username"
-          class="comments-field"
+          class="form-field"
           required
         />
-        <label for="comment-username" class="comments-label"
-          >Your Comment:
+        <label for="comment-username" class="form-label">
+          Your Comment:
         </label>
         <textarea
           id="comment-input"
           name="comment-input"
           placeholder="Enter your comment here..."
-          class="comments-area"
+          class="form-area"
           required
         ></textarea>
         <input type="submit" onClick="addComment()" class="comments-submit" />

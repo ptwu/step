@@ -7,6 +7,11 @@ body {
   clear: right;
 }
 
+button:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+
 .card {
   background-color: white;
   border-radius: 5px;
@@ -55,21 +60,15 @@ body {
   text-align: left;
 }
 
-.comments-area {
-  width: 50%;
-  font: 1.5em var(--defaultFont);
-  padding: 0.5em 0.5em 0.5em 0.5em;
-}
-
 .comments-card {
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 5px 5px rgba(0, 0, 0, 0.2);
   margin: 1em auto 1em auto;
-  width: 400px;
   max-width: 30%;
   overflow: hidden;
   position: relative;
+  width: 400px;
 }
 
 .comments-card-header {
@@ -100,32 +99,9 @@ body {
   padding: 0 2em 0 2em;
 }
 
-.comments-delete:hover {
-  cursor: pointer;
-  filter: brightness(90%);
-}
-
-.comments-field {
-  display: block;
-  font: 1.5em var(--defaultFont);
-  margin: auto;
-}
-
-.comments-header {
-  font: 2em var(--boldFont);
-  margin-top: 0;
-  padding-top: 1em;
-}
-
 .comments-icon {
   vertical-align: middle;
   display: inline-block;
-}
-
-.comments-label {
-  display: block;
-  font: 1.1em var(--boldFont);
-  margin: 8px 0 16px 0;
 }
 
 .comments-list {
@@ -173,6 +149,30 @@ body {
   background: white;
   padding: 32px;
   text-align: center;
+}
+
+.form-area {
+  font: 1.5em var(--defaultFont);
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  width: 50%;
+}
+
+.form-field {
+  display: block;
+  font: 1.5em var(--defaultFont);
+  margin: auto;
+}
+
+.form-header {
+  font: 2em var(--boldFont);
+  margin-top: 0;
+  padding-top: 1em;
+}
+
+.form-label {
+  display: block;
+  font: 1.1em var(--boldFont);
+  margin: 8px 0 16px 0;
 }
 
 .hero-container {
@@ -233,11 +233,6 @@ body {
   width: 18%;
 }
 
-.learn-more-button:hover {
-  background: var(--motifColorActive);
-  cursor: pointer;
-}
-
 .links-container {
   display: flex;
   float: left;
@@ -255,6 +250,17 @@ body {
   min-height: 55vh;
 }
 
+.maps-button {
+  background: #3cba54;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font: 1em var(--boldFont);
+  line-height: 30px;
+  margin: 0 auto 2em 1em;
+  padding: 0 2em 0 2em;
+}
+
 .maps-container {
   background: #454545;
   color: white;
@@ -262,9 +268,31 @@ body {
   text-align: center;
 }
 
+.maps-field {
+  font-family: var(--boldFont);
+  margin-right: 2em;
+}
+
 .maps-header {
   margin-top: 0;
   padding: 1em 0 1em 0;
+}
+
+.maps-submit {
+  background: #3cba54;
+  border: none;
+  border-radius: 30px;
+  color: white;
+  display: block;
+  font: 1.3em var(--boldFont);
+  line-height: 50px;
+  margin: 24px auto 0 auto;
+  padding: 0 2em 0 2em;
+}
+
+.maps-submit:hover {
+  cursor: pointer;
+  filter: brightness(90%);
 }
 
 .name-header {
