@@ -169,9 +169,23 @@
       <form action="/map-marker" method="POST">
         <h3 class="form-header">Add a Marker</h3>
         <label for="lat">Latitude:</label>
-        <input type="number" id="lat" name="lat" class="maps-field" required />
+        <input 
+          type="number" 
+          id="lat" 
+          name="lat" 
+          class="maps-field" 
+          step="any" 
+          required 
+        />
         <label for="lng">Longitude:</label>
-        <input type="number" id="lng" name="lng" class="maps-field" required />
+        <input 
+          type="number" 
+          id="lng" 
+          name="lng" 
+          class="maps-field" 
+          step="any" 
+          required 
+        />
         <button
           id="check-address-button"
           onClick="getAddress()"

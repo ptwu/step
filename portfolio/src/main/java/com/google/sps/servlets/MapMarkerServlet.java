@@ -58,8 +58,8 @@ public class MapMarkerServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String latitudeString = request.getParameter(MARKER_ENTITY_PROPERTY_LATITUDE);
     String longitudeString = request.getParameter(MARKER_ENTITY_PROPERTY_LONGITUDE);
-    String title = request.getParameter(MARKER_ENTITY_PROPERTY_TITLE);
-    String content = request.getParameter(MARKER_ENTITY_PROPERTY_CONTENT);
+    String title = request.getParameter("marker-title");
+    String content = request.getParameter("marker-content");
 
     double latitude = Double.parseDouble(latitudeString);
     double longitude = Double.parseDouble(longitudeString);

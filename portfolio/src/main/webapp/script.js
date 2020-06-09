@@ -324,7 +324,11 @@ function renderMarkersToMap(markerArray, map) {
  */
 async function initializeMarkers(map) {
   renderMarkersToMap(DEFAULT_MARKERS, map);
-  const userCreatedMarkers = await fetch("/map-marker");
+  const markerResponse = await fetch("/map-marker");
+  const userCreatedMarkers = await markerResponse.json(); 
+  if (!Array.isArray(userCreatedMarkers)) {
+    throw new Error("Response data is not an array");
+  }
   renderMarkersToMap(userCreatedMarkers, map);
 }
 
@@ -364,7 +368,7 @@ async function getAddress() {
     const json = await mapsAPIResponse.json();
     if (mapsAPIResponse.ok) {
       const address = json.results[0].formatted_address;
-      if (address !== undefined) {
+      if (json.results !== undefined && address !== undefined) {
         document.getElementById("address-display").innerText = address;
       } else {
         document.getElementById("address-display").innerText =
