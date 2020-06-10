@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const GOOGLE_API_KEY = "AIzaSyCNzSV2oZJ6L1faY_mnZUZp2DA9JQTQ6kU";
+
 // true represents that the blinking text is hidden, false shows
 let alternateOnOff = false;
 
@@ -206,6 +208,12 @@ formElement.addEventListener("submit", (event) => {
   event.preventDefault();
 });
 
+// Prevent Marker creation form button from automatically going to the action URI
+const checkAddressButton = document.getElementById("check-address-button");
+checkAddressButton.addEventListener("click", (event) => {
+  event.preventDefault();
+});
+
 /**
  * POST request to the /data endpoint with query params for username and text
  * corresponding to the form fields; alerts if response code is not 2xx
@@ -294,23 +302,44 @@ const DEFAULT_MARKERS = [
 ];
 
 /**
- * Adds markers in the markers const array to a certain Google Map
- * @param {google.maps.Map} map - Map object for which the markers will be added
+ * Renders all the markers in a certain array of marker objects to a certain
+ * map.
+ * @param {Array} markerArray which must have keys lat, lng, title, content,
+ * and optionally, image.
+ * @param {google.maps.Map} map
  */
-function initializeMarkers(map) {
-  DEFAULT_MARKERS.map(({ lat, lng, title, content, image }) => {
+function renderMarkersToMap(markerArray, map) {
+  markerArray.map((obj) => {
     const marker = new google.maps.Marker({
-      position: { lat: lat, lng: lng },
+      position: { lat: obj.lat, lng: obj.lng },
       map: map,
-      title: title,
+      title: obj.title,
     });
     const infoWindow = new google.maps.InfoWindow({
-      content: `<h1 class="infowindow-text">${title}</h1>
-      <img src="assets/images/${image}" class="infowindow-img" alt="${title}" />
-      <p class="infowindow-text">${content}</p>`,
+      content:
+        `<h1 class="infowindow-text">${obj.title}</h1>` +
+        (!obj.hasOwnProperty("image")
+          ? ``
+          : `<img src="assets/images/${obj.image}" class="infowindow-img" alt="${obj.title}" />`) +
+        `<p class="infowindow-text">${obj.content}</p>`,
     });
     marker.addListener("click", () => infoWindow.open(map, marker));
   });
+}
+
+/**
+ * Adds markers in the markers const array and those stored in the Datastore
+ * (accessible via /map-marker endpoint) to a certain Google Map
+ * @param {google.maps.Map} map - Map object for which the markers will be added
+ */
+async function initializeMarkers(map) {
+  renderMarkersToMap(DEFAULT_MARKERS, map);
+  const markerResponse = await fetch("/map-marker");
+  const userCreatedMarkers = await markerResponse.json();
+  if (!Array.isArray(userCreatedMarkers)) {
+    throw new Error("Response data is not an array");
+  }
+  renderMarkersToMap(userCreatedMarkers, map);
 }
 
 /**
@@ -323,4 +352,33 @@ function initializeMap() {
     zoom: 15,
   });
   initializeMarkers(map);
+}
+
+/**
+ * Retrieves latitude and longitude values from respective fields and queries
+ * the Google Geocoding API for an approximate address string. If an error occurs
+ * in the API fetch or bad input is provided, error message is alerted.
+ */
+async function getAddress() {
+  const lat = document.getElementById("lat").value;
+  const lng = document.getElementById("lng").value;
+  if (lat.length === 0 || lng.length === 0) {
+    alert("Enter a valid latitude/longitude pair!");
+  } else {
+    const mapsAPIResponse = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`
+    );
+    const json = await mapsAPIResponse.json();
+    if (mapsAPIResponse.ok) {
+      const address = json.results[0].formatted_address;
+      if (json.results !== undefined && address !== undefined) {
+        document.getElementById("address-display").innerText = address;
+      } else {
+        document.getElementById("address-display").innerText =
+          "No nearby address found";
+      }
+    } else {
+      alert(`Error! ${json.error_message}`);
+    }
+  }
 }

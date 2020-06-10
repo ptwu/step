@@ -58,8 +58,8 @@ public class MapMarkerServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String latitudeString = request.getParameter(MARKER_ENTITY_PROPERTY_LATITUDE);
     String longitudeString = request.getParameter(MARKER_ENTITY_PROPERTY_LONGITUDE);
-    String title = request.getParameter(MARKER_ENTITY_PROPERTY_TITLE);
-    String content = request.getParameter(MARKER_ENTITY_PROPERTY_CONTENT);
+    String title = request.getParameter("marker-title");
+    String content = request.getParameter("marker-content");
 
     double latitude = Double.parseDouble(latitudeString);
     double longitude = Double.parseDouble(longitudeString);
@@ -88,13 +88,13 @@ public class MapMarkerServlet extends HttpServlet {
    */
   @AutoValue
   abstract static class Marker {
-    static Marker create(double latitude, double longitude, String title, String content) {
-      return new AutoValue_MapMarkerServlet_Marker(latitude, longitude, title, content);
+    static Marker create(double lat, double lng, String title, String content) {
+      return new AutoValue_MapMarkerServlet_Marker(lat, lng, title, content);
     }
 
-    abstract double latitude();
+    abstract double lat();
 
-    abstract double longitude();
+    abstract double lng();
 
     abstract String title();
 
