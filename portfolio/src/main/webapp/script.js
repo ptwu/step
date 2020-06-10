@@ -302,10 +302,10 @@ const DEFAULT_MARKERS = [
 ];
 
 /**
- * Renders all the markers in a certain array of marker objects to a certain 
+ * Renders all the markers in a certain array of marker objects to a certain
  * map.
  * @param {Array} markerArray which must have keys lat, lng, title, content,
- * and optionally, image. 
+ * and optionally, image.
  * @param {google.maps.Map} map
  */
 function renderMarkersToMap(markerArray, map) {
@@ -319,8 +319,8 @@ function renderMarkersToMap(markerArray, map) {
       content:
         `<h1 class="infowindow-text">${obj.title}</h1>` +
         (!obj.hasOwnProperty("image")
-        ? ``
-        : `<img src="assets/images/${obj.image}" class="infowindow-img" alt="${obj.title}" />`) +
+          ? ``
+          : `<img src="assets/images/${obj.image}" class="infowindow-img" alt="${obj.title}" />`) +
         `<p class="infowindow-text">${obj.content}</p>`,
     });
     marker.addListener("click", () => infoWindow.open(map, marker));
@@ -335,7 +335,7 @@ function renderMarkersToMap(markerArray, map) {
 async function initializeMarkers(map) {
   renderMarkersToMap(DEFAULT_MARKERS, map);
   const markerResponse = await fetch("/map-marker");
-  const userCreatedMarkers = await markerResponse.json(); 
+  const userCreatedMarkers = await markerResponse.json();
   if (!Array.isArray(userCreatedMarkers)) {
     throw new Error("Response data is not an array");
   }
@@ -362,14 +362,7 @@ function initializeMap() {
 async function getAddress() {
   const lat = document.getElementById("lat").value;
   const lng = document.getElementById("lng").value;
-  if (
-    lat > 90 ||
-    lat < -90 ||
-    lng > 180 ||
-    lng < -180 ||
-    lat.length === 0 ||
-    lng.length === 0
-  ) {
+  if (lat.length === 0 || lng.length === 0) {
     alert("Enter a valid latitude/longitude pair!");
   } else {
     const mapsAPIResponse = await fetch(
