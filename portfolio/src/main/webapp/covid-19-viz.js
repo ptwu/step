@@ -7,6 +7,11 @@ function init() {
 let min = Number.MAX_VALUE;
 let max = -Number.MAX_VALUE;
 
+/**
+ * Fetches data from the COVID-19 API on confirmed cases per U.S.
+ * state/territory and sets the data as a property on each state/territory.
+ * @param {google.maps.Map} map 
+ */
 async function renderCOVIDData(map) {
   const data = await fetch("https://api.covid19api.com/live/country/us");
   const json = await data.json();
@@ -22,6 +27,11 @@ async function renderCOVIDData(map) {
   document.getElementById("max").textContent = max.toLocaleString();
 }
 
+/**
+ * Returns the styling associated with a certain feature representing a
+ * state/territory, based on its "cases" property.
+ * @param {google.maps.Data.Feature} feature
+ */
 function styleCallback(feature) {
   const low = [5, 100, 86];
   const high = [5, 100, 41];
