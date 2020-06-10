@@ -256,6 +256,11 @@ button:hover {
   min-height: 55vh;
 }
 
+#map-covid {
+  width: 100%;
+  min-height: 90vh;
+}
+
 .maps-button {
   background: #3cba54;
   border: none;
@@ -271,6 +276,11 @@ button:hover {
   background: #454545;
   color: white;
   min-height: 70vh;
+  text-align: center;
+}
+
+.maps-container-covid {
+  min-height: 100vh;
   text-align: center;
 }
 
@@ -306,9 +316,23 @@ button:hover {
   margin-bottom: 0;
 }
 
+.navbar-link {
+  color: white;
+  font-family: var(--boldFont);
+  margin-left: 2em;
+  text-decoration: none;
+}
+
+.navbar-link:hover {
+  filter: brightness(90%);
+}
+
 .navbar-wrap {
+  align-items: center;
   background-color: rgb(59, 59, 59);
   box-sizing: border-box;
+  display: flex;
+  justify-content: left;
   padding: 0.5em 0 0.5em 2em;
   width: 100%;
 }
