@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>COVID-19 Map Visualization</title>
+    <link rel="stylesheet" href="constants.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <script async defer src="covid-19-viz.js"></script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNzSV2oZJ6L1faY_mnZUZp2DA9JQTQ6kU"
+    ></script>
+  </head>
+  <body onload="init()">
+    <div class="navbar-wrap">
+      <a href="#" id="logo-button">
+        <img src="/assets/images/logo.png" alt="Peter Wu logo" width="72px" />
+      </a>
+      <a href="index.html" class="navbar-link">Home</a>
+      <a href="#" class="navbar-link">COVID-19 Visualization</a>
+    </div>
+    <div class="maps-container-covid">
+      <h2 class="maps-header">USA COVID-19 Data Visualization</h2>
+
+      <div id="map-covid"></div>
+    </div>
+    <footer class="footer-white">
+      Built from scratch with HTML + CSS + JavaScript.
+      <br />
+      © 2018-2020 Peter Wu.
+    </footer>
+  </body>
+</html>
