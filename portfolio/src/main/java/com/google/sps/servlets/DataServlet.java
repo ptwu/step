@@ -21,6 +21,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.common.collect.Iterables;
 
@@ -41,11 +43,18 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
 
   private static final String COMMENT_ENTITY_PROPERTY_NAME = "name";
+  private static final String COMMENT_ENTITY_PROPERTY_EMAIL = "email";
   private static final String COMMENT_ENTITY_PROPERTY_TEXT = "text";
   private static final String COMMENT_ENTITY_PROPERTY_TIMESTAMP = "timestamp";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+    if (!userService.isUserLoggedIn()) {
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+      return;
+    }
+
     String requestParam = request.getParameter("limit");
     Query query = new Query("comment").addSort(COMMENT_ENTITY_PROPERTY_TIMESTAMP, SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -60,10 +69,11 @@ public class DataServlet extends HttpServlet {
 
     for (Entity entity : entityIterable) {
       String name = (String) entity.getProperty(COMMENT_ENTITY_PROPERTY_NAME);
+      String email = userService.getCurrentUser().getEmail();
       String text = (String) entity.getProperty(COMMENT_ENTITY_PROPERTY_TEXT);
       long timestamp = (long) entity.getProperty(COMMENT_ENTITY_PROPERTY_TIMESTAMP);
 
-      Comment comment = Comment.create(name, text, timestamp);
+      Comment comment = Comment.create(name, email, text, timestamp);
       comments.add(comment);
     }
 
@@ -75,7 +85,14 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+    if (!userService.isUserLoggedIn()) {
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+      return;
+    }
+
     String username = request.getParameter("username");
+    String email = userService.getCurrentUser().getEmail();
     String commentText = request.getParameter("text");
     long timestamp = System.currentTimeMillis();
 
@@ -87,6 +104,7 @@ public class DataServlet extends HttpServlet {
 
     Entity commentEntity = new Entity("comment");
     commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_NAME, username);
+    commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_EMAIL, email);
     commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_TEXT, commentText);
     commentEntity.setProperty(COMMENT_ENTITY_PROPERTY_TIMESTAMP, timestamp);
 
@@ -96,16 +114,19 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-   * Value class for a comment, complete with a username, body text, and timestamp
-   * in milliseconds since the Unix epoch. Generated using AutoValue.
+   * Value class for a comment, complete with a username, email address of the
+   * poster, body text, and timestamp in milliseconds since the Unix epoch.
+   * Generated using AutoValue.
    */
   @AutoValue
   abstract static class Comment {
-    static Comment create(String name, String text, long timestamp) {
-      return new AutoValue_DataServlet_Comment(name, text, timestamp);
+    static Comment create(String name, String email, String text, long timestamp) {
+      return new AutoValue_DataServlet_Comment(name, email, text, timestamp);
     }
 
     abstract String name();
+
+    abstract String email();
 
     abstract String text();
 
