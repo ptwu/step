@@ -22,6 +22,7 @@ function init() {
   typeWriterEffect(0, 0);
   displayServletContent(5);
   initializeMap();
+  checkAuth();
 }
 
 // Interval for repeated blinking text effect on page
@@ -380,5 +381,20 @@ async function getAddress() {
     } else {
       alert(`Error! ${json.error_message}`);
     }
+  }
+}
+
+async function checkAuth() {
+  const response = await fetch("/auth-status");
+  const { isLoggedIn, email, loginUrl, logoutUrl } = await response.json();
+
+  if (isLoggedIn) {
+    document.getElementById(
+      "login-greeting"
+    ).innerText = `You are logged in as ${email}.`;
+  } else {
+    document.getElementById(
+      "comments-div"
+    ).innerHTML = `<p>Login to post a comment <a href="${loginUrl}">here</a>.</p>`;
   }
 }
