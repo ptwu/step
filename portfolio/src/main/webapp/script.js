@@ -384,6 +384,10 @@ async function getAddress() {
   }
 }
 
+/**
+ * Fetches auth status of client from backend and renders corresponding
+ * status to the DOM, with a login/logout URL.
+ */
 async function checkAuth() {
   const response = await fetch("/auth-status");
   const { isLoggedIn, email, loginUrl, logoutUrl } = await response.json();
@@ -391,10 +395,10 @@ async function checkAuth() {
   if (isLoggedIn) {
     document.getElementById(
       "login-greeting"
-    ).innerText = `You are logged in as ${email}.`;
+    ).innerHTML = `<p>You are logged in as ${email}. <a href="${logoutUrl}">Logout</a></p>`;
   } else {
     document.getElementById(
-      "comments-div"
-    ).innerHTML = `<p>Login to post a comment <a href="${loginUrl}">here</a>.</p>`;
+      "comments-form-div"
+    ).innerHTML = `<p class="login-text">Login to post a comment <a href="${loginUrl}">here</a>.</p>`;
   }
 }

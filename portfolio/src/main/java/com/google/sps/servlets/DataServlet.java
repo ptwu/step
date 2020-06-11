@@ -49,12 +49,6 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    UserService userService = UserServiceFactory.getUserService();
-    if (!userService.isUserLoggedIn()) {
-      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-      return;
-    }
-
     String requestParam = request.getParameter("limit");
     Query query = new Query("comment").addSort(COMMENT_ENTITY_PROPERTY_TIMESTAMP, SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -69,7 +63,7 @@ public class DataServlet extends HttpServlet {
 
     for (Entity entity : entityIterable) {
       String name = (String) entity.getProperty(COMMENT_ENTITY_PROPERTY_NAME);
-      String email = userService.getCurrentUser().getEmail();
+      String email = (String) entity.getProperty(COMMENT_ENTITY_PROPERTY_EMAIL);
       String text = (String) entity.getProperty(COMMENT_ENTITY_PROPERTY_TEXT);
       long timestamp = (long) entity.getProperty(COMMENT_ENTITY_PROPERTY_TIMESTAMP);
 

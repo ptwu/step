@@ -28,10 +28,10 @@ public class AuthStatusServlet extends HttpServlet {
     if (userService.isUserLoggedIn()) {
       String logoutUrl = userService.createLoginURL(AUTH_LOGIN_LOGOUT_REDIRECT_URI);
       String userEmail = userService.getCurrentUser().getEmail();
-      statusData = UserAuthStatus.create(true, userEmail, null, logoutUrl);
+      statusData = UserAuthStatus.create(true, userEmail, "", logoutUrl);
     } else {
       String loginUrl = userService.createLoginURL(AUTH_LOGIN_LOGOUT_REDIRECT_URI);
-      statusData = UserAuthStatus.create(false, null, loginUrl, null);
+      statusData = UserAuthStatus.create(false, "", loginUrl, "");
     }
 
     response.setContentType("application/json;");
@@ -42,9 +42,8 @@ public class AuthStatusServlet extends HttpServlet {
 
   /**
    * Value class for a certain authenticated/unauthenticated user, with a boolean
-   * repesenting login status, email (can be null if user is logged out), and
-   * login url or logout url (one of which is null if the user is logged in or
-   * logged out).
+   * repesenting login status, email, and login url or logout url. If one of these
+   * are not avaiable, the empty string is used.
    */
   @AutoValue
   abstract static class UserAuthStatus {
