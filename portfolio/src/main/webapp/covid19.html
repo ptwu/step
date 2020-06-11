@@ -5,6 +5,7 @@
     <title>COVID-19 Map Visualization</title>
     <link rel="stylesheet" href="constants.css" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style-covid19.css" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <script async defer src="covid-19-viz.js"></script>
@@ -24,7 +25,13 @@
     </div>
     <div class="maps-container-covid">
       <h2 class="maps-header">USA COVID-19 Data Visualization</h2>
-
+      <div id="data-box" class="box-card">
+        <label id="data-label" for="data-value"></label>
+        <span id="data-value">Hover over a state for COVID-19 statistics</span>
+      </div>
+      <div id="data-box-summary" class="box-card">
+        <span id="data-summary"></span>
+      </div>
       <div id="map-covid"></div>
     </div>
     <footer class="footer-white">
