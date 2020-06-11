@@ -396,9 +396,11 @@ async function checkAuth() {
     document.getElementById(
       "login-greeting"
     ).innerHTML = `<p>You are logged in as ${email}. <a href="${logoutUrl}">Logout</a></p>`;
+    document.getElementById("comment-delete-button").style.display = "block";
   } else {
     document.getElementById(
       "comments-form-div"
     ).innerHTML = `<p class="login-text">Login to post a comment <a href="${loginUrl}">here</a>.</p>`;
+    document.getElementById("comment-delete-button").style.display = "none";
   }
 }
