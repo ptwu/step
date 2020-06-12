@@ -23,6 +23,7 @@ function init() {
   displayServletContent(5);
   initializeMap();
   checkAuth();
+  initializeMarkerForm();
 }
 
 // Interval for repeated blinking text effect on page
@@ -403,4 +404,13 @@ async function checkAuth() {
     ).innerHTML = `<p class="login-text">Login to post a comment <a href="${loginUrl}">here</a>.</p>`;
     document.getElementById("comment-delete-button").style.display = "none";
   }
+}
+
+/**
+ * Sets the form action of the Marker creation form to the Blobstore upload URL.
+ */
+async function initializeMarkerForm() {
+  const response = await fetch("/blobstore-upload-url");
+  const url = await response.text();
+  document.getElementById("marker-form").action = url;
 }
