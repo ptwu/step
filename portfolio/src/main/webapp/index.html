@@ -168,7 +168,7 @@
       <h2 class="maps-header">Cool Places at Cornell Tour</h2>
       <div id="map"></div>
       <hr />
-      <form action="/map-marker" method="POST">
+      <form id="marker-form" method="POST" enctype="multipart/form-data">
         <h3 class="form-header">Add a Marker</h3>
         <label for="lat">Latitude:</label>
         <input
@@ -210,6 +210,10 @@
           name="marker-title"
           required
         />
+        <label for="marker-title" class="form-label"
+          >Photo of Marker Location:
+        </label>
+        <input type="file" name="image" />
         <label for="marker-content" class="form-label">Description: </label>
         <textarea
           id="marker-content"
