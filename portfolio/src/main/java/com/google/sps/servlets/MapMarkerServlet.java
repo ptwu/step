@@ -40,7 +40,7 @@ public class MapMarkerServlet extends HttpServlet {
   private static final String MARKER_ENTITY_PROPERTY_LONGITUDE = "lng";
   private static final String MARKER_ENTITY_PROPERTY_TITLE = "title";
   private static final String MARKER_ENTITY_PROPERTY_CONTENT = "content";
-  private static final String MARKER_ENTITY_PROPERTY_IMAGE = "image_url";
+  private static final String MARKER_ENTITY_PROPERTY_IMAGE = "image";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -134,8 +134,8 @@ public class MapMarkerServlet extends HttpServlet {
    */
   @AutoValue
   abstract static class Marker {
-    static Marker create(double lat, double lng, String title, String content, String imageUrl) {
-      return new AutoValue_MapMarkerServlet_Marker(lat, lng, title, content, imageUrl);
+    static Marker create(double lat, double lng, String title, String content, String image) {
+      return new AutoValue_MapMarkerServlet_Marker(lat, lng, title, content, image);
     }
 
     abstract double lat();
@@ -146,6 +146,6 @@ public class MapMarkerServlet extends HttpServlet {
 
     abstract String content();
 
-    abstract String imageUrl();
+    abstract String image();
   }
 }

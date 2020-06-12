@@ -250,7 +250,7 @@ const DEFAULT_MARKERS = [
     title: "Mary Donlon Hall: My Dorm",
     content: `I lived in Donlon Hall during my freshman year. It was a good time,
     since it is considered the "social" dorm.`,
-    image: "donlon.jpg",
+    image: "/assets/images/donlon.jpg",
   },
   {
     lat: 42.4486,
@@ -259,7 +259,7 @@ const DEFAULT_MARKERS = [
     content: `Libe Slope ("The Slope") is one of the best views at Cornell. It
     faces west, so you can see a nice view of the sunset, but it is still pretty
     annoying to walk up every day, so I try my best to avoid it.`,
-    image: "libe.jpg",
+    image: "/assets/images/libe.jpg",
   },
   {
     lat: 42.4498,
@@ -269,7 +269,7 @@ const DEFAULT_MARKERS = [
     at Cornell, but is a popular study spot among engineers. Contains a nice cafe
     called Goldie's and very nice natural light that keeps you from falling 
     asleep.`,
-    image: "psb.jpg",
+    image: "/assets/images/psb.jpg",
   },
   {
     lat: 42.4479,
@@ -279,7 +279,7 @@ const DEFAULT_MARKERS = [
     many options for food, but does not take meal swipes: it is an eatery rather
     than a dining hall, so you can either use credit card or Big Red Bucks (Cornell's
     version of dining dollars which are untaxed)`,
-    image: "trillium.jpg",
+    image: "/assets/images/trillium.jpg",
   },
   {
     lat: 42.445,
@@ -289,7 +289,7 @@ const DEFAULT_MARKERS = [
     Information Science. Some upper-level CS courses are taught here, and this
     is where all the PhDs and professors have their offices. A pretty futuristic
     building, it was built in 2014.`,
-    image: "gates.jpg",
+    image: "/assets/images/gates.jpg",
   },
   {
     lat: 42.4529,
@@ -299,7 +299,7 @@ const DEFAULT_MARKERS = [
     equipment (volleyball and badminton nets). The badminton team practices here
     every Tuesday, Thursday, and Saturday (though I miss a lot of the practices
     due to work/studies).`,
-    image: "helennewman.jpg",
+    image: "/assets/images/helennewman.jpg",
   },
 ];
 
@@ -311,19 +311,16 @@ const DEFAULT_MARKERS = [
  * @param {google.maps.Map} map
  */
 function renderMarkersToMap(markerArray, map) {
-  markerArray.map((obj) => {
+  markerArray.map(({ lat, lng, title, content, image }) => {
     const marker = new google.maps.Marker({
-      position: { lat: obj.lat, lng: obj.lng },
+      position: { lat: lat, lng: lng },
       map: map,
-      title: obj.title,
+      title: title,
     });
     const infoWindow = new google.maps.InfoWindow({
-      content:
-        `<h1 class="infowindow-text">${obj.title}</h1>` +
-        (!obj.hasOwnProperty("image")
-          ? ``
-          : `<img src="assets/images/${obj.image}" class="infowindow-img" alt="${obj.title}" />`) +
-        `<p class="infowindow-text">${obj.content}</p>`,
+      content: `<h1 class="infowindow-text">${title}</h1>
+          <img src="${image}" class="infowindow-img" alt="${title}" />
+          <p class="infowindow-text">${content}</p>`,
     });
     marker.addListener("click", () => infoWindow.open(map, marker));
   });
