@@ -28,10 +28,17 @@ public class AuthStatusServlet extends HttpServlet {
     if (userService.isUserLoggedIn()) {
       String logoutUrl = userService.createLoginURL(AUTH_LOGIN_LOGOUT_REDIRECT_URI);
       String userEmail = userService.getCurrentUser().getEmail();
-      statusData = UserAuthStatus.builder().setIsLoggedIn(true).setEmail(userEmail).setLogoutUrl(logoutUrl).build();
+      statusData = UserAuthStatus.builder()
+                    .setIsLoggedIn(true)
+                    .setEmail(userEmail)
+                    .setLogoutUrl(logoutUrl)
+                    .build();
     } else {
       String loginUrl = userService.createLoginURL(AUTH_LOGIN_LOGOUT_REDIRECT_URI);
-      statusData = UserAuthStatus.builder().setIsLoggedIn(false).setLoginUrl(loginUrl).build();
+      statusData = UserAuthStatus.builder()
+                    .setIsLoggedIn(false)
+                    .setLoginUrl(loginUrl)
+                    .build();
     }
 
     response.setContentType("application/json;");
@@ -57,8 +64,10 @@ public class AuthStatusServlet extends HttpServlet {
     abstract String logoutUrl();
 
     static Builder builder() {
-      return new AutoValue_AuthStatusServlet_UserAuthStatus.Builder().setEmail("none").setLoginUrl("none")
-          .setLogoutUrl("none");
+      return new AutoValue_AuthStatusServlet_UserAuthStatus.Builder()
+                   .setEmail("none")
+                   .setLoginUrl("none")
+                   .setLogoutUrl("none");
     }
 
     @AutoValue.Builder
