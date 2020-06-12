@@ -222,8 +222,9 @@
         <br />
       </form>
     </div>
-    <div class="comments-container">
+    <div class="comments-container" id="comments-div">
       <h2 class="form-header">Comments</h2>
+      <div id="login-greeting"></div>
       <label for="comment-number-shown">
         Show
       </label>
@@ -260,29 +261,31 @@
       </button>
       <div id="comments-section"></div>
       <hr />
-      <form id="comments-form">
-        <h3>Add a Comment</h3>
-        <label for="comment-username" class="form-label">Your Name:</label>
-        <input
-          type="text"
-          id="comment-username"
-          placeholder="John Doe"
-          name="comment-username"
-          class="form-field"
-          required
-        />
-        <label for="comment-username" class="form-label">
-          Your Comment:
-        </label>
-        <textarea
-          id="comment-input"
-          name="comment-input"
-          placeholder="Enter your comment here..."
-          class="form-area"
-          required
-        ></textarea>
-        <input type="submit" onClick="addComment()" class="comments-submit" />
-      </form>
+      <div id="comments-form-div">
+        <form id="comments-form">
+          <h3>Add a Comment</h3>
+          <label for="comment-username" class="form-label">Your Name:</label>
+          <input
+            type="text"
+            id="comment-username"
+            placeholder="John Doe"
+            name="comment-username"
+            class="form-field"
+            required
+          />
+          <label for="comment-username" class="form-label">
+            Your Comment:
+          </label>
+          <textarea
+            id="comment-input"
+            name="comment-input"
+            placeholder="Enter your comment here..."
+            class="form-area"
+            required
+          ></textarea>
+          <input type="submit" onClick="addComment()" class="comments-submit" />
+        </form>
+      </div>
     </div>
     <footer class="footer-white">
       Built from scratch with HTML + CSS + JavaScript.

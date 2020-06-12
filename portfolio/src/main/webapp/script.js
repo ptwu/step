@@ -22,6 +22,7 @@ function init() {
   typeWriterEffect(0, 0);
   displayServletContent(5);
   initializeMap();
+  checkAuth();
 }
 
 // Interval for repeated blinking text effect on page
@@ -380,5 +381,26 @@ async function getAddress() {
     } else {
       alert(`Error! ${json.error_message}`);
     }
+  }
+}
+
+/**
+ * Fetches auth status of client from backend and renders corresponding
+ * status to the DOM, with a login/logout URL.
+ */
+async function checkAuth() {
+  const response = await fetch("/auth-status");
+  const { isLoggedIn, email, loginUrl, logoutUrl } = await response.json();
+
+  if (isLoggedIn) {
+    document.getElementById(
+      "login-greeting"
+    ).innerHTML = `<p>You are logged in as ${email}. <a href="${logoutUrl}">Logout</a></p>`;
+    document.getElementById("comment-delete-button").style.display = "block";
+  } else {
+    document.getElementById(
+      "comments-form-div"
+    ).innerHTML = `<p class="login-text">Login to post a comment <a href="${loginUrl}">here</a>.</p>`;
+    document.getElementById("comment-delete-button").style.display = "none";
   }
 }

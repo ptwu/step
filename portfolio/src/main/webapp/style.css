@@ -246,6 +246,12 @@ button:hover {
   width: 35%;
 }
 
+.login-text {
+  font-size: 1.5em;
+  margin: 0;
+  padding-top: 3em;
+}
+
 #logo-button:hover {
   filter: brightness(120%);
 }
