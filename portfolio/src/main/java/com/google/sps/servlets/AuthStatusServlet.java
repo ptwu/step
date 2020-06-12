@@ -64,7 +64,10 @@ public class AuthStatusServlet extends HttpServlet {
     abstract String logoutUrl();
 
     static Builder builder() {
-      return AutoValue_AuthStatusServlet_UserAuthStatus.builder();
+      return new AutoValue_AuthStatusServlet_UserAuthStatus.Builder()
+                   .setEmail("none")
+                   .setLoginUrl("none")
+                   .setLogoutUrl("none");
     }
 
     @AutoValue.Builder
