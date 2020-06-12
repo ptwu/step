@@ -28,10 +28,17 @@ public class AuthStatusServlet extends HttpServlet {
     if (userService.isUserLoggedIn()) {
       String logoutUrl = userService.createLoginURL(AUTH_LOGIN_LOGOUT_REDIRECT_URI);
       String userEmail = userService.getCurrentUser().getEmail();
-      statusData = UserAuthStatus.create(true, userEmail, "", logoutUrl);
+      statusData = UserAuthStatus.builder()
+                    .setIsLoggedIn(true)
+                    .setEmail(userEmail)
+                    .setLogoutUrl(logoutUrl)
+                    .build();
     } else {
       String loginUrl = userService.createLoginURL(AUTH_LOGIN_LOGOUT_REDIRECT_URI);
-      statusData = UserAuthStatus.create(false, "", loginUrl, "");
+      statusData = UserAuthStatus.builder()
+                    .setIsLoggedIn(false)
+                    .setLoginUrl(loginUrl)
+                    .build();
     }
 
     response.setContentType("application/json;");
@@ -47,9 +54,6 @@ public class AuthStatusServlet extends HttpServlet {
    */
   @AutoValue
   abstract static class UserAuthStatus {
-    static UserAuthStatus create(boolean isLoggedIn, String email, String loginUrl, String logoutUrl) {
-      return new AutoValue_AuthStatusServlet_UserAuthStatus(isLoggedIn, email, loginUrl, logoutUrl);
-    }
 
     abstract boolean isLoggedIn();
 
@@ -58,5 +62,22 @@ public class AuthStatusServlet extends HttpServlet {
     abstract String loginUrl();
 
     abstract String logoutUrl();
+
+    static Builder builder() {
+      return AutoValue_AuthStatusServlet_UserAuthStatus.builder();
+    }
+
+    @AutoValue.Builder
+    abstract static class Builder {
+      abstract Builder setIsLoggedIn(boolean value);
+
+      abstract Builder setEmail(String value);
+
+      abstract Builder setLoginUrl(String value);
+
+      abstract Builder setLogoutUrl(String value);
+
+      abstract UserAuthStatus build();
+    }
   }
 }
