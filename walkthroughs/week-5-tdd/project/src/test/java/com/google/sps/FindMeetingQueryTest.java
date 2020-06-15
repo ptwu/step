@@ -74,7 +74,7 @@ public final class FindMeetingQueryTest {
 
     Collection<TimeRange> actual = query.query(NO_EVENTS, request);
     Collection<TimeRange> expected = Arrays.asList();
-
+  
     Assert.assertEquals(expected, actual);
   }
 

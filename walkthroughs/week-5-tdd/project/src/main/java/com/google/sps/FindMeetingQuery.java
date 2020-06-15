@@ -47,7 +47,8 @@ public final class FindMeetingQuery {
       if (prevTimeRange != null && curr.contains(prevTimeRange)) {
         iter.remove();
         iter.previous();
-        iter.set(TimeRange.fromStartEnd(prevTimeRange.start(), curr.end(), false));
+        int end = prevTimeRange.end() > curr.end() ? prevTimeRange.end() : curr.end();
+        iter.set(TimeRange.fromStartEnd(prevTimeRange.start(), end, false));
       }
       prevTimeRange = curr;
     }
@@ -55,7 +56,7 @@ public final class FindMeetingQuery {
 
   private void addTimeRangeIfValid(Collection<TimeRange> availableTimeRanges, int start, int end, long duration,
       boolean inclusive) {
-    if (start < end && end - start > duration) {
+    if (start < end && end - start > duration && end <= TimeRange.END_OF_DAY) {
       availableTimeRanges.add(TimeRange.fromStartEnd(start, end, inclusive));
     }
   }
@@ -65,6 +66,9 @@ public final class FindMeetingQuery {
     Collections.sort(busyTimeRanges, TimeRange.ORDER_BY_START);
     discretizeSortedTimeRanges(busyTimeRanges);
 
+    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
+      return Arrays.asList();
+    }
     if (busyTimeRanges.size() == 0) {
       return Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true));
     }
@@ -77,7 +81,7 @@ public final class FindMeetingQuery {
     for (int i = 0; i < busyTimeRanges.size() - 1; i++) {
       int currStart = busyTimeRanges.get(i).end();
       int currEnd = busyTimeRanges.get(i + 1).start();
-      addTimeRangeIfValid(availableTimeRanges, currStart, currEnd, request.getDuration(), false);
+      addTimeRangeIfValid(availableTimeRanges, currStart, currEnd, request.getDuration(), true);
     }
 
     addTimeRangeIfValid(availableTimeRanges, busyTimeRanges.get(busyTimeRanges.size() - 1).end(), TimeRange.END_OF_DAY,
