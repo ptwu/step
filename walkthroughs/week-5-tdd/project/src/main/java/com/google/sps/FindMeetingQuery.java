@@ -56,7 +56,7 @@ public final class FindMeetingQuery {
 
   private void addTimeRangeIfValid(Collection<TimeRange> availableTimeRanges, int start, int end, long duration,
       boolean inclusive) {
-    if (start < end && end - start > duration && end <= TimeRange.END_OF_DAY) {
+    if (start < end && end - start >= duration && end <= TimeRange.END_OF_DAY) {
       availableTimeRanges.add(TimeRange.fromStartEnd(start, end, inclusive));
     }
   }
@@ -81,7 +81,7 @@ public final class FindMeetingQuery {
     for (int i = 0; i < busyTimeRanges.size() - 1; i++) {
       int currStart = busyTimeRanges.get(i).end();
       int currEnd = busyTimeRanges.get(i + 1).start();
-      addTimeRangeIfValid(availableTimeRanges, currStart, currEnd, request.getDuration(), true);
+      addTimeRangeIfValid(availableTimeRanges, currStart, currEnd, request.getDuration(), false);
     }
 
     addTimeRangeIfValid(availableTimeRanges, busyTimeRanges.get(busyTimeRanges.size() - 1).end(), TimeRange.END_OF_DAY,
