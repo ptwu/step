@@ -24,6 +24,12 @@ import java.util.Set;
 
 public final class FindMeetingQuery {
 
+  /**
+   * Computes a list of all time ranges where all attendees of a meeting are busy
+   * @param  events    Collection of Event objects formed before the creation of this meeting
+   * @param  attendees Collection of attendee string names
+   * @return List of time ranges where attendees are engaged in other events.
+   */
   private List<TimeRange> getBusyTimeRanges(Collection<Event> events, Collection<String> attendees) {
     List<TimeRange> busyTimeRanges = new ArrayList<TimeRange>();
     for (Event event : events) {
@@ -38,22 +44,33 @@ public final class FindMeetingQuery {
     return busyTimeRanges;
   }
 
+  /**
+   * Removes nested and overlapping time ranges in a certain sorted List 
+   * of TimeRange objects
+   * @param  sortedtimeRanges  List of TimeRange objects that must be ordered by starting time
+   */
   private void discretizeSortedTimeRanges(List<TimeRange> sortedTimeRanges) {
     ListIterator<TimeRange> iter = sortedTimeRanges.listIterator();
     TimeRange prevTimeRange = null;
 
     while (iter.hasNext()) {
       TimeRange curr = iter.next();
-      if (prevTimeRange != null && curr.contains(prevTimeRange)) {
-        iter.remove();
-        iter.previous();
-        int end = prevTimeRange.end() > curr.end() ? prevTimeRange.end() : curr.end();
-        iter.set(TimeRange.fromStartEnd(prevTimeRange.start(), end, false));
+      if (prevTimeRange != null) {
+        if (prevTimeRange.contains(curr)) {
+          iter.remove();
+        } else if (prevTimeRange.overlaps(curr)) {
+          int end = Math.max(prevTimeRange.end(), curr.end());
+          iter.set(TimeRange.fromStartEnd(prevTimeRange.start(), end, false));
+        }
       }
       prevTimeRange = curr;
     }
   }
 
+  /**
+  * Adds a time range with certain start, end, duration, and inclusitivity attributes to a Collection of 
+  * TimeRange objects if they fit the meeting requirements and are valid within a day.
+  */
   private void addTimeRangeIfValid(Collection<TimeRange> availableTimeRanges, int start, int end, long duration,
       boolean inclusive) {
     if (start < end && end - start >= duration && end <= TimeRange.END_OF_DAY) {
@@ -61,6 +78,12 @@ public final class FindMeetingQuery {
     }
   }
 
+  /**
+   * Returns a Collection of TimeRange objects representing possible intervals of a certain meeting
+   * occurring, with all participants able to go and having a certain possible duration.
+   * @param  events  A Collection of Event objects formed before the creation of this meeting
+   * @param  request A MeetingRequest object representing the meeting data.
+   */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     List<TimeRange> busyTimeRanges = getBusyTimeRanges(events, request.getAttendees());
     Collections.sort(busyTimeRanges, TimeRange.ORDER_BY_START);
