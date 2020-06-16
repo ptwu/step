@@ -25,9 +25,52 @@ import java.util.Set;
 public final class FindMeetingQuery {
 
   /**
+   * Returns a Collection of TimeRange objects representing possible intervals of
+   * a certain meeting occurring, with all participants able to go and having a
+   * certain possible duration.
+   * 
+   * @param events  A Collection of Event objects formed before the creation of
+   *                this meeting
+   * @param request A MeetingRequest object representing the meeting data.
+   */
+  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    List<TimeRange> busyTimeRanges = getBusyTimeRanges(events, request.getAttendees());
+    Collections.sort(busyTimeRanges, TimeRange.ORDER_BY_START);
+    discretizeSortedTimeRanges(busyTimeRanges);
+
+    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
+      return Arrays.asList();
+    }
+    if (busyTimeRanges.size() == 0) {
+      return Arrays.asList(TimeRange.WHOLE_DAY);
+    }
+
+    Collection<TimeRange> availableTimeRanges = new ArrayList<>();
+    // Add from beginning of day to first busy time point
+    TimeRange BODToFirstBusyRange = TimeRange.fromStartEnd(TimeRange.START_OF_DAY, busyTimeRanges.get(0).start(),
+        false);
+    addTimeRangeIfValid(availableTimeRanges, BODToFirstBusyRange, request.getDuration());
+
+    for (int i = 0; i < busyTimeRanges.size() - 1; i++) {
+      int currStart = busyTimeRanges.get(i).end();
+      int currEnd = busyTimeRanges.get(i + 1).start();
+      TimeRange currRange = TimeRange.fromStartEnd(currStart, currEnd, false);
+      addTimeRangeIfValid(availableTimeRanges, currRange, request.getDuration());
+    }
+
+    TimeRange lastBusyToEODRange = TimeRange.fromStartEnd(busyTimeRanges.get(busyTimeRanges.size() - 1).end(),
+        TimeRange.END_OF_DAY, true);
+    addTimeRangeIfValid(availableTimeRanges, lastBusyToEODRange, request.getDuration();
+
+    return availableTimeRanges;
+  }
+
+  /**
    * Computes a list of all time ranges where all attendees of a meeting are busy
-   * @param  events    Collection of Event objects formed before the creation of this meeting
-   * @param  attendees Collection of attendee string names
+   * 
+   * @param events    Collection of Event objects formed before the creation of
+   *                  this meeting
+   * @param attendees Collection of attendee string names
    * @return List of time ranges where attendees are engaged in other events.
    */
   private List<TimeRange> getBusyTimeRanges(Collection<Event> events, Collection<String> attendees) {
@@ -45,9 +88,11 @@ public final class FindMeetingQuery {
   }
 
   /**
-   * Removes nested and overlapping time ranges in a certain sorted List 
-   * of TimeRange objects
-   * @param  sortedtimeRanges  List of TimeRange objects that must be ordered by starting time
+   * Removes nested and overlapping time ranges in a certain sorted List of
+   * TimeRange objects
+   * 
+   * @param sortedtimeRanges List of TimeRange objects that must be ordered by
+   *                         starting time
    */
   private void discretizeSortedTimeRanges(List<TimeRange> sortedTimeRanges) {
     ListIterator<TimeRange> iter = sortedTimeRanges.listIterator();
@@ -68,48 +113,13 @@ public final class FindMeetingQuery {
   }
 
   /**
-  * Adds a time range with certain start, end, duration, and inclusitivity attributes to a Collection of 
-  * TimeRange objects if they fit the meeting requirements and are valid within a day.
-  */
-  private void addTimeRangeIfValid(Collection<TimeRange> availableTimeRanges, int start, int end, long duration,
-      boolean inclusive) {
-    if (start < end && end - start >= duration && end <= TimeRange.END_OF_DAY) {
-      availableTimeRanges.add(TimeRange.fromStartEnd(start, end, inclusive));
-    }
-  }
-
-  /**
-   * Returns a Collection of TimeRange objects representing possible intervals of a certain meeting
-   * occurring, with all participants able to go and having a certain possible duration.
-   * @param  events  A Collection of Event objects formed before the creation of this meeting
-   * @param  request A MeetingRequest object representing the meeting data.
+   * Adds a time range with certain start, end, duration, and inclusitivity
+   * attributes to a Collection of TimeRange objects if they fit the meeting
+   * requirements and are valid within a day.
    */
-  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    List<TimeRange> busyTimeRanges = getBusyTimeRanges(events, request.getAttendees());
-    Collections.sort(busyTimeRanges, TimeRange.ORDER_BY_START);
-    discretizeSortedTimeRanges(busyTimeRanges);
-
-    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
-      return Arrays.asList();
+  private void addTimeRangeIfValid(Collection<TimeRange> availableTimeRanges, TimeRange range, long duration) {
+    if (range.start() < range.end() && range.end() - range.start() >= duration && range.end() <= TimeRange.END_OF_DAY) {
+      availableTimeRanges.add(range);
     }
-    if (busyTimeRanges.size() == 0) {
-      return Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true));
-    }
-
-    Collection<TimeRange> availableTimeRanges = new ArrayList<>();
-    // Add from beginning of day to first busy time point
-    addTimeRangeIfValid(availableTimeRanges, TimeRange.START_OF_DAY, busyTimeRanges.get(0).start(),
-        request.getDuration(), false);
-
-    for (int i = 0; i < busyTimeRanges.size() - 1; i++) {
-      int currStart = busyTimeRanges.get(i).end();
-      int currEnd = busyTimeRanges.get(i + 1).start();
-      addTimeRangeIfValid(availableTimeRanges, currStart, currEnd, request.getDuration(), false);
-    }
-
-    addTimeRangeIfValid(availableTimeRanges, busyTimeRanges.get(busyTimeRanges.size() - 1).end(), TimeRange.END_OF_DAY,
-        request.getDuration(), true);
-
-    return availableTimeRanges;
   }
 }
