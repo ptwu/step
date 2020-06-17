@@ -55,6 +55,17 @@ public final class FindMeetingQuery {
     return getValidMeetingTimeRanges(requiredTimeRanges, request);
   }
 
+  /**
+   * Computes the valid meeting time ranges according to a certain MeetingRequest
+   * and list of busy time ranges where the attendees cannot attend.
+   * 
+   * @param busyTimeRanges list of TimeRange objects representing the busy time
+   *                       ranges, sorted, for a certain group.
+   * @param request        MeetingRequest object representing the meeting
+   *                       requirements
+   * @return Collection of TimeRange objects representing valid meeting time
+   *         intervals
+   */
   private Collection<TimeRange> getValidMeetingTimeRanges(List<TimeRange> busyTimeRanges, MeetingRequest request) {
     Collections.sort(busyTimeRanges, TimeRange.ORDER_BY_START);
     discretizeSortedTimeRanges(busyTimeRanges);
@@ -103,7 +114,6 @@ public final class FindMeetingQuery {
         }
       }
     }
-    Collections.sort(busyTimeRanges, TimeRange.ORDER_BY_START);
     return busyTimeRanges;
   }
 
