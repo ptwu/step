@@ -35,11 +35,11 @@ public final class FindMeetingQuery {
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     List<TimeRange> requiredTimeRanges = getBusyTimeRanges(events, request.getAttendees());
-    List<TimeRange> optionalBusyTimeRanges = getBusyTimeRanges(events, request.getOptionalAttendees());
+    List<TimeRange> optionalTimeRanges = getBusyTimeRanges(events, request.getOptionalAttendees());
     List<TimeRange> optionalAndRequiredTimeRanges = new ArrayList<>(
-        requiredTimeRanges.size() + optionalBusyTimeRanges.size());
+        requiredTimeRanges.size() + optionalTimeRanges.size());
     optionalAndRequiredTimeRanges.addAll(requiredTimeRanges);
-    optionalAndRequiredTimeRanges.addAll(optionalBusyTimeRanges);
+    optionalAndRequiredTimeRanges.addAll(optionalTimeRanges);
 
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       return Arrays.asList();
@@ -48,7 +48,7 @@ public final class FindMeetingQuery {
     Collection<TimeRange> validMeetingTimesWithOptional = getValidMeetingTimeRanges(optionalAndRequiredTimeRanges,
         request);
 
-    if (validMeetingTimesWithOptional.size() > 0) {
+    if (validMeetingTimesWithOptional.size() > 0 || requiredTimeRanges.size() == 0) {
       return validMeetingTimesWithOptional;
     }
 
@@ -67,12 +67,12 @@ public final class FindMeetingQuery {
    *         intervals
    */
   private Collection<TimeRange> getValidMeetingTimeRanges(List<TimeRange> busyTimeRanges, MeetingRequest request) {
-    Collections.sort(busyTimeRanges, TimeRange.ORDER_BY_START);
-    discretizeSortedTimeRanges(busyTimeRanges);
-
     if (busyTimeRanges.size() == 0) {
       return Arrays.asList(TimeRange.WHOLE_DAY);
     }
+    
+    Collections.sort(busyTimeRanges, TimeRange.ORDER_BY_START);
+    discretizeSortedTimeRanges(busyTimeRanges);
 
     Collection<TimeRange> availableTimeRanges = new ArrayList<>();
     // Add from beginning of day to first busy time point
@@ -130,15 +130,18 @@ public final class FindMeetingQuery {
 
     while (iter.hasNext()) {
       TimeRange curr = iter.next();
-      if (prevTimeRange != null) {
+      if (prevTimeRange == null) {
+        prevTimeRange = curr;
+      } else {
         if (prevTimeRange.contains(curr)) {
           iter.remove();
         } else if (prevTimeRange.overlaps(curr)) {
           int end = Math.max(prevTimeRange.end(), curr.end());
           iter.set(TimeRange.fromStartEnd(prevTimeRange.start(), end, false));
+        } else {
+          prevTimeRange == curr;
         }
       }
-      prevTimeRange = curr;
     }
   }
 
