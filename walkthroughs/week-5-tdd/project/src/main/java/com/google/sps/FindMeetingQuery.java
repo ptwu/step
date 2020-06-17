@@ -66,7 +66,7 @@ public final class FindMeetingQuery {
    * @return Collection of TimeRange objects representing valid meeting time
    *         intervals
    */
-  private Collection<TimeRange> getValidMeetingTimeRanges(List<TimeRange> busyTimeRanges, MeetingRequest request) {
+  private static Collection<TimeRange> getValidMeetingTimeRanges(List<TimeRange> busyTimeRanges, MeetingRequest request) {
     if (busyTimeRanges.size() == 0) {
       return Arrays.asList(TimeRange.WHOLE_DAY);
     }
@@ -103,7 +103,7 @@ public final class FindMeetingQuery {
    * @param attendees Collection of attendee string names
    * @return List of time ranges where attendees are engaged in other events.
    */
-  private List<TimeRange> getBusyTimeRanges(Collection<Event> events, Collection<String> attendees) {
+  private static List<TimeRange> getBusyTimeRanges(Collection<Event> events, Collection<String> attendees) {
     List<TimeRange> busyTimeRanges = new ArrayList<TimeRange>();
     for (Event event : events) {
       Set<String> currEventAttendees = event.getAttendees();
@@ -124,7 +124,7 @@ public final class FindMeetingQuery {
    * @param sortedtimeRanges List of TimeRange objects that must be ordered by
    *                         starting time
    */
-  private void discretizeSortedTimeRanges(List<TimeRange> sortedTimeRanges) {
+  private static void discretizeSortedTimeRanges(List<TimeRange> sortedTimeRanges) {
     ListIterator<TimeRange> iter = sortedTimeRanges.listIterator();
     TimeRange prevTimeRange = null;
 
@@ -150,7 +150,7 @@ public final class FindMeetingQuery {
    * attributes to a Collection of TimeRange objects if they fit the meeting
    * requirements and are valid within a day.
    */
-  private void addTimeRangeIfValid(Collection<TimeRange> availableTimeRanges, TimeRange range, long duration) {
+  private static void addTimeRangeIfValid(Collection<TimeRange> availableTimeRanges, TimeRange range, long duration) {
     if (range.start() < range.end() && range.end() - range.start() >= duration) {
       availableTimeRanges.add(range);
     }
