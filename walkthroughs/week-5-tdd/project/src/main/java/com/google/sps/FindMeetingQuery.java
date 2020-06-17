@@ -139,7 +139,7 @@ public final class FindMeetingQuery {
           int end = Math.max(prevTimeRange.end(), curr.end());
           iter.set(TimeRange.fromStartEnd(prevTimeRange.start(), end, false));
         } else {
-          prevTimeRange == curr;
+          prevTimeRange = curr;
         }
       }
     }

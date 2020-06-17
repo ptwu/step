@@ -340,9 +340,8 @@ public final class FindMeetingQueryTest {
     request.addOptionalAttendee(PERSON_B);
 
     Collection<TimeRange> actual = query.query(events, request);
-    Collection<TimeRange> expected = Arrays.asList(TimeRange.fromStartEnd(
-        TimeRange.fromStartEnd(TIME_0800AM, TIME_0900AM, false),
-        TimeRange.fromStartEnd(TIME_1000AM, TimeRange.END_OF_DAY, true)));
+    Collection<TimeRange> expected = Arrays.asList(TimeRange.fromStartEnd(TIME_0800AM, TIME_0900AM, false),
+        TimeRange.fromStartEnd(TIME_1000AM, TimeRange.END_OF_DAY, true));
 
     Assert.assertEquals(expected, actual);
   }
