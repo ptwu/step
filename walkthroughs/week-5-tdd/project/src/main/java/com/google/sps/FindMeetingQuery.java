@@ -26,8 +26,9 @@ public final class FindMeetingQuery {
 
   /**
    * Returns a Collection of TimeRange objects representing possible intervals of
-   * a certain meeting occurring, with all participants able to go and having a
-   * certain possible duration.
+   * a certain meeting occurring, with all participants able to go. If the 
+   * request parameter has optional attendees, they will be accounted for
+   * unless they block the meeting from occurring entirely.
    * 
    * @param events  A Collection of Event objects formed before the creation of
    *                this meeting
