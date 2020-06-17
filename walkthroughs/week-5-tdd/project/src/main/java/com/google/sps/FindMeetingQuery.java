@@ -25,19 +25,40 @@ import java.util.Set;
 public final class FindMeetingQuery {
 
   /**
-   * Returns a Collection of TimeRange objects representing possible intervals of a certain meeting
-   * occurring, with all participants able to go and having a certain possible duration.
-   * @param  events  A Collection of Event objects formed before the creation of this meeting
-   * @param  request A MeetingRequest object representing the meeting data.
+   * Returns a Collection of TimeRange objects representing possible intervals of
+   * a certain meeting occurring, with all participants able to go and having a
+   * certain possible duration.
+   * 
+   * @param events  A Collection of Event objects formed before the creation of
+   *                this meeting
+   * @param request A MeetingRequest object representing the meeting data.
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    List<TimeRange> busyTimeRanges = getBusyTimeRanges(events, request.getAttendees());
-    Collections.sort(busyTimeRanges, TimeRange.ORDER_BY_START);
-    discretizeSortedTimeRanges(busyTimeRanges);
+    List<TimeRange> requiredTimeRanges = getBusyTimeRanges(events, request.getAttendees());
+    List<TimeRange> optionalBusyTimeRanges = getBusyTimeRanges(events, request.getOptionalAttendees());
+    List<TimeRange> optionalAndRequiredTimeRanges = new ArrayList<>(
+        requiredTimeRanges.size() + optionalBusyTimeRanges.size());
+    optionalAndRequiredTimeRanges.addAll(requiredTimeRanges);
+    optionalAndRequiredTimeRanges.addAll(optionalBusyTimeRanges);
 
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       return Arrays.asList();
     }
+
+    Collection<TimeRange> validMeetingTimesWithOptional = getValidMeetingTimeRanges(optionalAndRequiredTimeRanges,
+        request);
+
+    if (validMeetingTimesWithOptional.size() > 0) {
+      return validMeetingTimesWithOptional;
+    }
+
+    return getValidMeetingTimeRanges(requiredTimeRanges, request);
+  }
+
+  private Collection<TimeRange> getValidMeetingTimeRanges(List<TimeRange> busyTimeRanges, MeetingRequest request) {
+    Collections.sort(busyTimeRanges, TimeRange.ORDER_BY_START);
+    discretizeSortedTimeRanges(busyTimeRanges);
+
     if (busyTimeRanges.size() == 0) {
       return Arrays.asList(TimeRange.WHOLE_DAY);
     }
@@ -61,11 +82,14 @@ public final class FindMeetingQuery {
 
     return availableTimeRanges;
   }
-  
+
   /**
-   * Computes a list of all time ranges where all attendees of a meeting are busy
-   * @param  events    Collection of Event objects formed before the creation of this meeting
-   * @param  attendees Collection of attendee string names
+   * Computes a sorted list (by start time) of all time ranges where all attendees
+   * of a meeting are busy
+   * 
+   * @param events    Collection of Event objects formed before the creation of
+   *                  this meeting
+   * @param attendees Collection of attendee string names
    * @return List of time ranges where attendees are engaged in other events.
    */
   private List<TimeRange> getBusyTimeRanges(Collection<Event> events, Collection<String> attendees) {
@@ -79,13 +103,16 @@ public final class FindMeetingQuery {
         }
       }
     }
+    Collections.sort(busyTimeRanges, TimeRange.ORDER_BY_START);
     return busyTimeRanges;
   }
 
   /**
-   * Removes nested and overlapping time ranges in a certain sorted List 
-   * of TimeRange objects
-   * @param  sortedtimeRanges  List of TimeRange objects that must be ordered by starting time
+   * Removes nested and overlapping time ranges in a certain sorted List of
+   * TimeRange objects
+   * 
+   * @param sortedtimeRanges List of TimeRange objects that must be ordered by
+   *                         starting time
    */
   private void discretizeSortedTimeRanges(List<TimeRange> sortedTimeRanges) {
     ListIterator<TimeRange> iter = sortedTimeRanges.listIterator();
@@ -106,8 +133,9 @@ public final class FindMeetingQuery {
   }
 
   /**
-   * Adds a time range with certain start, end, duration, and inclusitivity attributes to a Collection of 
-   * TimeRange objects if they fit the meeting requirements and are valid within a day.
+   * Adds a time range with certain start, end, duration, and inclusitivity
+   * attributes to a Collection of TimeRange objects if they fit the meeting
+   * requirements and are valid within a day.
    */
   private void addTimeRangeIfValid(Collection<TimeRange> availableTimeRanges, TimeRange range, long duration) {
     if (range.start() < range.end() && range.end() - range.start() >= duration) {
